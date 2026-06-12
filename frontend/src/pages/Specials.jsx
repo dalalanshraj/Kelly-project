@@ -38,7 +38,7 @@ export default function SpecialsPage() {
           backgroundImage: `url(${heroImage})`,
         }}
       >
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/20" />
 
         <div
           className="
