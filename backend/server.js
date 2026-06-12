@@ -32,7 +32,8 @@ import icalcalendarRoutes from "./routes/icalRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 4007;
 const allowedOrigins = [
-
+ "https://bestinpcbrentals.mydesign.blog",
+  "https://bestinpcbrentals.mydesign.blog",
   "http://localhost:4000",
 ];
 
