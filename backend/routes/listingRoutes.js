@@ -92,71 +92,6 @@ router.get("/public", async (req, res) => {
 router.post("/", createListing);
 
 router.get("/", isAuth, isAdmin, getAllListings);
-//! community
-router.get("/communities/all", async (req, res) => {
-  try {
-    const communities = await Listing.distinct(
-      "property.community",
-      {
-        status: "published",
-      }
-    );
-
-    res.json(
-      communities.filter(Boolean)
-    );
-  } catch (err) {
-    res.status(500).json({
-      error: err.message,
-    });
-  }
-});
-router.get("/community/:community", async (req, res) => {
-  
-  try {
-
-    const community = decodeURIComponent(
-      req.params.community
-    );
-
-    const listings = await Listing.find({
-      status: "published",
-      "property.community": community,
-    });
-
-    const today = new Date();
-
-    const deals = await Deal.find({
-      displayFrom: { $lte: today },
-      displayEnd: { $gte: today },
-    });
-
-    const result = listings.map(
-      (listing) => {
-
-        const deal = deals.find(
-          (d) =>
-            d.listingId.toString() ===
-            listing._id.toString()
-        );
-
-        return {
-          ...listing._doc,
-          deal: deal || null,
-        };
-      }
-    );
-
-    res.json(result);
-
-  } catch (err) {
-
-    res.status(500).json({
-      message: err.message,
-    });
-
-  }
-});
 router.get("/:id", getListingById); 
 router.delete("/:id", deleteListing);
  
@@ -205,7 +140,70 @@ router.put(
   toggleListingStatus
 );
 
+//! community
+router.get("/communities/all", async (req, res) => {
+  try {
+    const communities = await Listing.distinct(
+      "property.community",
+      {
+        status: "published",
+      }
+    );
 
+    res.json(
+      communities.filter(Boolean)
+    );
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+});
+router.get("/community/:community", async (req, res) => {
+  try {
+
+    const community = decodeURIComponent(
+      req.params.community
+    );
+
+    const listings = await Listing.find({
+      status: "published",
+      "property.community": community,
+    });
+
+    const today = new Date();
+
+    const deals = await Deal.find({
+      displayFrom: { $lte: today },
+      displayEnd: { $gte: today },
+    });
+
+    const result = listings.map(
+      (listing) => {
+
+        const deal = deals.find(
+          (d) =>
+            d.listingId.toString() ===
+            listing._id.toString()
+        );
+
+        return {
+          ...listing._doc,
+          deal: deal || null,
+        };
+      }
+    );
+
+    res.json(result);
+
+  } catch (err) {
+
+    res.status(500).json({
+      message: err.message,
+    });
+
+  }
+});
 
 export default router;
   
