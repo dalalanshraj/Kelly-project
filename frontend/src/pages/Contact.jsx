@@ -77,7 +77,7 @@ export default function Contact() {
               </h2>
 
               <div className="space-y-8">
-                <div>\
+                <div>
                   <h3 className="font-semibold mb-2">Phone</h3>
 
                   <p>+1 (850) 866 2077</p>
