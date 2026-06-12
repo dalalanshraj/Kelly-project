@@ -25,7 +25,7 @@ const PropertyDetails = () => {
 
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("availability");
+  const [activeTab, setActiveTab] = useState("Availability");
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   // Handle form input changes
@@ -267,7 +267,7 @@ const PropertyDetails = () => {
 
             {/* Tabs */}
             <div className="grid grid-cols-3 bg-[#2f2f2f] text-white">
-              {["availability", "reviews", "rates"].map((tab) => (
+              {["Availability", "Reviews", "Rates"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -292,10 +292,10 @@ const PropertyDetails = () => {
                   View available, reserved and turnover dates.
                 </p>
               </div>
-              {activeTab === "availability" && (
+              {activeTab === "Availability" && (
                 <PropertyminiCalendar listingId={listing._id} />
               )}
-              {activeTab === "reviews" && (
+              {activeTab === "Reviews" && (
                 <div>
                   {/* HEADER */}
 
@@ -477,7 +477,7 @@ const PropertyDetails = () => {
                 </div>
               )} */}
 
-              {activeTab === "rates" && (
+              {activeTab === "Rates" && (
                 <div>
                   {/* Header */}
 

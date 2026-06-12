@@ -50,7 +50,7 @@ const Footer = () => {
                 <Twitter className="w-5 h-5" />
               </a>
             </div>
-            <p className="font-serif text-3xl font-light italic mt-12">Find Rentals.</p>
+            
           </div>
 
           {/* Right Column (Quick Links) */}
@@ -60,7 +60,7 @@ const Footer = () => {
               <li><Link to={"/"} className="hover:text-[#3c8a8c] transition-colors">Home</Link></li>
               <li><Link to={"/about"} className="hover:text-[#3c8a8c] transition-colors">About</Link></li>
               <li><Link to={"/contact"} className="hover:text-[#3c8a8c] transition-colors">Contact Us</Link></li>
-              <li><Link to={"/area-guide/activities"} className="hover:text-[#3c8a8c] transition-colors"> Activities</Link></li>
+              <li><Link to={"/activities"} className="hover:text-[#3c8a8c] transition-colors"> Activities</Link></li>
               <li><Link to={"/property-management"} className="hover:text-[#3c8a8c] transition-colors"> Property Management</Link></li>
             </ul>
           </div>

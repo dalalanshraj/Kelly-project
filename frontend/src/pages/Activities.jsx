@@ -17,57 +17,52 @@ const ActivitiesPage = () => {
   const activities = [
     {
       id: 1,
-      title: "Area Golf",
+      title: "Rick Seltzer Park",
       imageSrc: GolfImg,
       description:
-        "Enjoy championship golf courses located near Panama City Beach.",
+        " Rick Seltzer Park provides some precious free and public access to the Panama City Beach oceanfront. This is a great lifeguarded swimming beach backed by handsome dunes and if you’re timing’s right surprisingly uncrowded. It offers the perfect sunset vantage, and it’s close to a number of restaurants that make combining sand and sun worship with some PCB dining out a (sea) breeze.",
     },
 
     {
       id: 2,
-      title: "Island Time Boat Tours",
+      title: "St. Andrews State Park",
       imageSrc: BoatTourImg,
       description:
-        "Experience dolphin cruises, sunset tours and unforgettable adventures on the Gulf.",
+        "The park has such amenities as two-and-a-half miles of beaches, bicycling, birding, boat tours, boating, canoeing, two fishing piers, hiking, kayaking, picnicking areas, scuba diving, snorkeling, swimming, wildlife viewing and full camping facilities. During the summer, camping reservations are recommended for best availability. It also has a visitor center, an interpretive exhibit and concessions.",
     },
 
     {
       id: 3,
-      title: "Shopping Malls",
+      title: " Camp Helen State Park",
       imageSrc: ShoppingImg,
       description:
-        "Explore shopping centers, boutiques and local attractions nearby.",
+        "Camp Helen State Park is a Florida State Park and historic site located west of Panama City Beach, in northwestern Florida. The park is south of U.S. 98, and bounded by the Gulf of Mexico and Lake Powell. The park was added to the National Register of Historic Places on May 24, 2012",
     },
 
     {
       id: 4,
-      title: "Hook'd Pier Bar & Grill",
+      title: "Frank Brown Park",
       imageSrc: HookdImg,
       description:
-        "Beachfront dining featuring seafood favorites and amazing Gulf views.",
+        "Frank Brown Park is a 200-acre outdoor recreation facility in Panama City Beach, Florida. The park hosts various sporting events throughout the year and has facilities available for public use. The largest park in Panama City Beach is Frank Brown Park, just over 100 acres and located on Panama City Beach Parkway between State Road 79 and Pier Park",
     },
 
     {
       id: 5,
-      title: "Liza's Kitchen",
+      title: "Pier Park",
       imageSrc: LizasImg,
       description:
-        "Local favorite restaurant serving fresh sandwiches and homemade dishes.",
+        " Pier Park is Panama City Beach’s premier shopping and entertainment destination. Serving the Panama City Beach and 30A community, this outdoor complex boasts 124 stores, ranging from clothing for the whole family to home goods, shoes, and jewelry. Pier Park also offers many exciting dining options. No matter what you’re in the mood for, Pier Park has the variety that puts the all in the mall. Choose your adventures at a variety of entertainment venues from the Grand IMAX movie theater, to laser tag and live music, Pier Park is your destination for fun, food, and fantastic shopping all near one of the country’s most beautiful beaches.",
     },
 
     {
       id: 6,
-      title: "Skydive Panama City",
+      title: "Panama City Beach",
       imageSrc: SkydiveImg,
-      description: "Take in breathtaking aerial views of Panama City Beach.",
+      description: " This 27-mile long beach offers a wide variety of activities to enjoy such as swimming, snorkeling, dolphin-spotting parasailing and jet skiing.",
     },
 
-    {
-      id: 7,
-      title: "The Grand Theatre",
-      imageSrc: TheatreImg,
-      description: "Movies, entertainment and family fun for all ages.",
-    },
+    
   ];
 
   return (
@@ -84,7 +79,7 @@ const ActivitiesPage = () => {
                 backgroundImage: `url(${heroImage})`,
               }}
             >
-              <div className="absolute inset-0 bg-black/20" />
+              <div className="absolute inset-0 bg-black/50" />
       
               <div
                 className="
@@ -104,7 +99,8 @@ const ActivitiesPage = () => {
                   font-serif
             "
                 >
-                 ACTIVITIES
+                  
+                 Activities
                 </h1>
               </div>
             </section>
@@ -122,7 +118,7 @@ const ActivitiesPage = () => {
           mb-4
         "
           >
-            LOCAL ACTIVITIES
+            Things To Do
           </h2>
 
           <p
@@ -137,7 +133,65 @@ const ActivitiesPage = () => {
             Explore the best experiences, attractions, restaurants and
             adventures near our communities.
           </p>
+<div className="w-full px-4 md:px-8 py-8">
+  <div
+    className="
+      max-w-7xl mx-auto
+      bg-[#fff]
+      rounded-2xl
+      shadow-xl
+      overflow-hidden
+      transition-all
+      duration-500
+      hover:shadow-2xl
+      hover:-translate-y-1
+    "
+  >
+    <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 p-6 md:p-10">
+      
+      {/* Left Content */}
+      <div className="order-2 lg:order-1 text-center lg:text-left animate-fadeIn">
+        <h2 className="text-4xl md:text-5xl font-serif text-gray-800 tracking-wide mb-6 uppercase">
+          I Love Panama City Beach – The Original FB Group
+        </h2>
 
+        <p className="text-lg leading-relaxed mb-8">
+         Welcome to the I Love Panama City Beach – The Original FB Group. If you want to know more about Panama City Beach click here for more information.
+
+Know More
+        </p>
+
+      <a href="https://www.facebook.com/groups/ilovepcbfl/">  <button
+          className="
+            
+            px-8 py-4
+            bg-[#3c8a8c] text-white rounded hover:bg-teal-700 transition-colors duration-300
+          "
+        >
+          Know More
+        </button></a>
+      </div>
+
+      {/* Right Image */}
+      <div className="order-1 lg:order-2 flex justify-center">
+        <div className="overflow-hidden rounded-2xl">
+          <img
+            src={TheatreImg}
+            alt="PCB"
+            className="
+              w-full
+              max-w-md
+              object-contain
+              transition-all
+              duration-700
+              hover:scale-110
+            "
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
           <div
             className="
     grid
@@ -283,7 +337,7 @@ const ActivitiesPage = () => {
                 {selectedActivity.description}
               </p>
 
-              <button
+              {/* <button
                 onClick={() => setSelectedActivity(null)}
                 className="
               mt-8
@@ -297,7 +351,7 @@ const ActivitiesPage = () => {
             "
               >
                 Close
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

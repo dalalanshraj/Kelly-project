@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { Menu, X, Search, Mail, Phone, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import api from "../api/axios";
-import LOGO from "../assets/Logo/LOGO.png"
+import LOGO from "../assets/Logo/LOGO.png";
 import { useLocation } from "react-router-dom";
 
 const NavLink = ({ text, href, children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  
+
   const hasDropdown = !!children;
 
   return (
@@ -101,8 +101,7 @@ const Navbar = () => {
   const [properties, setProperties] = useState([]);
   const [openMenu, setOpenMenu] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
-const [searchTerm, setSearchTerm] = useState("");
-
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -130,24 +129,17 @@ const [searchTerm, setSearchTerm] = useState("");
       slug: "shores-of-panama-properties",
     },
   ];
-const filteredProperties = properties.filter((item) => {
-  if (!searchTerm.trim()) return false;
+  const filteredProperties = properties.filter((item) => {
+    if (!searchTerm.trim()) return false;
 
-  const searchWords = searchTerm
-    .toLowerCase()
-    .trim()
-    .split(/\s+/);
+    const searchWords = searchTerm.toLowerCase().trim().split(/\s+/);
 
-  const titleWords = item.property?.title
-    ?.toLowerCase()
-    .split(/\s+/);
+    const titleWords = item.property?.title?.toLowerCase().split(/\s+/);
 
-  return searchWords.every((word) =>
-    titleWords.some((titleWord) =>
-      titleWord.includes(word)
-    )
-  );
-});
+    return searchWords.every((word) =>
+      titleWords.some((titleWord) => titleWord.includes(word)),
+    );
+  });
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -165,15 +157,15 @@ const filteredProperties = properties.filter((item) => {
     };
   }, [menuOpen]);
 
-    useEffect(() => {
-  setMenuOpen(false);
-}, [location.pathname]);
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <nav className="fixed top-0 left-0 z-50 w-full bg-white  backdrop-blur-md border-b border-gray-100 shadow-sm">
-<div className="max-w-[1600px] mx-auto flex items-center justify-between px-8 lg:px-12 h-[110px] relative">
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between px-8 lg:px-12 h-[110px] relative">
         {/* Desktop Left Menu */}
-        <ul className="hidden md:flex items-center gap-2 text-sm ">
+        <ul className="hidden md:flex items-center space-x-10 text-md  uppercase">
           <NavLink text="COMMUNITIES">
             <Link
               to="/community/Seychelles%20Properties"
@@ -219,8 +211,13 @@ const filteredProperties = properties.filter((item) => {
               SPECIALS
             </Link>
           </li>
-          <br/>
-          <NavLink text="AREA GUIDE">
+          <li>
+            <Link to={"/activities"} className="group relative font-medium">
+              Things To Do
+            </Link>
+          </li>
+          <br />
+          {/* <NavLink text="AREA GUIDE">
             <Link
               to="/area-guide/activities"
               className="
@@ -232,20 +229,20 @@ const filteredProperties = properties.filter((item) => {
             >
               <span>Activities</span>
             </Link>
-          </NavLink>
-          <li>
+          </NavLink> */}
+          {/* <li>
             <Link
               to={"/property-management"}
               className="group relative font-medium"
             >
               PROPERTY MANAGEMENT
             </Link>
-          </li>
+          </li> */}
         </ul>
 
         {/* Center Logo (Desktop) */}
-  <div
-  className="
+        <div
+          className="
     hidden md:block
     absolute
     left-1/2
@@ -253,36 +250,35 @@ const filteredProperties = properties.filter((item) => {
     -translate-x-1/2
     z-50
   "
->
-  <Link to="/">
-    {/* Shadow Wrapper */}
-    <div
-      className="
+        >
+          <Link to="/">
+            {/* Shadow Wrapper */}
+            <div
+              className="
         relative
-        w-[370px]
+        w-[470px]
         h-[190px]
          
       
       "
-    >
-      {/* Shape */}
-     <div
-  className="
+            >
+              {/* Shape */}
+              <div
+                className="
     w-[420px]
     h-[190px]
     bg-white
     relative
   "
- style={{
-  clipPath:
-    "polygon(0 0,100% 0,88% 75%,50% 88%,12% 75%)",
-  boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
-}}
->
-        <img
-          src={LOGO}
-          alt="logo"
-          className="
+                style={{
+                  clipPath: "polygon(0 0,100% 0,88% 75%,50% 88%,12% 75%)",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+                }}
+              >
+                <img
+                  src={LOGO}
+                  alt="logo"
+                  className="
             absolute
             left-1/2
             top-8
@@ -290,16 +286,16 @@ const filteredProperties = properties.filter((item) => {
             h-[110px]
             object-contain
           "
-        />
-      </div>
-    </div>
-  </Link>
-</div>
+                />
+              </div>
+            </div>
+          </Link>
+        </div>
 
         {/* Desktop Right Menu */}
-        <ul className="hidden md:flex items-center space-x-5 text-sm">
+        <ul className="hidden md:flex items-center space-x-9 text-md">
           <li>
-            <Link to={"/about"} className="group relative font-medium">
+            <Link to={"/about"} className="group relative z-[9999] font-medium">
               ABOUT US
             </Link>
           </li>
@@ -311,20 +307,17 @@ const filteredProperties = properties.filter((item) => {
               CONTACT
             </Link>
           </li>
-          <li className="font-semibold text-sm">+1 850 866 2077</li>  
-         <li
-  className="cursor-pointer"
-  onClick={() => setShowSearch(true)}
->
-  <Search className="w-5 h-5" />
-</li>
+          <li className="font-semibold text-md">+1 850 866 2077</li>
+          <li className="cursor-pointer" onClick={() => setShowSearch(true)}>
+            <Search className="w-5 h-5" />
+          </li>
           <li className="cursor-pointer">
             <Mail className="w-5 h-5" />
           </li>
         </ul>
 
         {/* Mobile Navbar */}
-       <div className="md:hidden relative flex items-center justify-center w-full h-16">
+        <div className="md:hidden relative flex items-center justify-center w-full h-16">
           <Link to={"/"} className="flex items-center">
             <img
               src={LOGO}
@@ -344,11 +337,10 @@ const filteredProperties = properties.filter((item) => {
           </div>
         </div>
       </div>
-
-  {/* BACKDROP */}
-{menuOpen && (
-  <div
-    className="
+      {/* BACKDROP */}
+      {menuOpen && (
+        <div
+          className="
       fixed inset-0
       bg-black/50
       backdrop-blur-sm
@@ -356,14 +348,13 @@ const filteredProperties = properties.filter((item) => {
       transition-all
       duration-300
     "
-    onClick={() => setMenuOpen(false)}
-  />
-)}
-
-{/* MOBILE DRAWER */}
-<div
-  ref={menuRef}
-  className={`
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+      {/* MOBILE DRAWER */}
+      <div
+        ref={menuRef}
+        className={`
     fixed
     top-0
     left-0
@@ -376,16 +367,12 @@ const filteredProperties = properties.filter((item) => {
     transition-all
     duration-300
     overflow-y-auto
-    ${
-      menuOpen
-        ? "translate-x-0"
-        : "-translate-x-full"
-    }
+    ${menuOpen ? "translate-x-0" : "-translate-x-full"}
   `}
->
-  {/* HEADER */}
-  <div
-    className="
+      >
+        {/* HEADER */}
+        <div
+          className="
       sticky
       top-0
      bg-[#fff]
@@ -396,20 +383,20 @@ const filteredProperties = properties.filter((item) => {
       justify-between
       shadow-md
     "
-  >
-    <div>
-    <Link to={"/"} className="flex items-center">
-            <img
-              src={LOGO}
-              alt="Seahorse Logo"
-              className="h-14 object-contain"
-            />
-          </Link>
-    </div>
+        >
+          <div>
+            <Link to={"/"} className="flex items-center">
+              <img
+                src={LOGO}
+                alt="Seahorse Logo"
+                className="h-14 object-contain"
+              />
+            </Link>
+          </div>
 
-    <button
-      onClick={() => setMenuOpen(false)}
-      className="
+          <button
+            onClick={() => setMenuOpen(false)}
+            className="
         w-10
         h-10
         rounded-full
@@ -418,25 +405,20 @@ const filteredProperties = properties.filter((item) => {
         items-center
         justify-center
       "
-    >
-      <X className="w-6 h-6" />
-    </button>
-  </div>
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
 
-  {/* NAVIGATION */}
-  <div className="p-5">
-    <ul className="space-y-2">
-
-    <li className="border-b border-gray-200">
-  <button
-    onClick={() =>
-      setOpenMenu(
-        openMenu === "communities"
-          ? null
-          : "communities"
-      )
-    }
-    className="
+        {/* NAVIGATION */}
+        <div className="p-5">
+          <ul className="space-y-2">
+            <li className="border-b border-gray-200">
+              <button
+                onClick={() =>
+                  setOpenMenu(openMenu === "communities" ? null : "communities")
+                }
+                className="
       w-full
       flex
       justify-between
@@ -445,104 +427,83 @@ const filteredProperties = properties.filter((item) => {
       py-4
       font-medium
     "
-  >
-    COMMUNITIES
-
-    <ChevronRight
-      className={`
+              >
+                COMMUNITIES
+                <ChevronRight
+                  className={`
         w-5 h-5
         transition-all
         duration-300
-        ${
-          openMenu === "communities"
-            ? "rotate-90"
-            : ""
-        }
+        ${openMenu === "communities" ? "rotate-90" : ""}
       `}
-    />
-  </button>
+                />
+              </button>
 
-  <div
-    className={`
+              <div
+                className={`
       overflow-hidden
+      uppercase
       transition-all
       duration-300
-      ${
-        openMenu === "communities"
-          ? "max-h-96"
-          : "max-h-0"
-      }
+      ${openMenu === "communities" ? "max-h-96" : "max-h-0"}
     `}
-  >
-    <Link
-      to="/community/Seychelles%20Properties"
-      className="block px-8 py-3 border-t border-gray-100"
-    >
-      Seychelles Properties
-    </Link>
+              >
+                <Link
+                  to="/community/Seychelles%20Properties"
+                  className="block px-8 py-3 border-t border-gray-100"
+                >
+                  Seychelles Properties
+                </Link>
 
-    <Link
-      to="/community/Laketown%20Wharf%20Properties"
-      className="block px-8 py-3 border-t border-gray-100"
-    >
-      Laketown Wharf Properties
-    </Link>
+                <Link
+                  to="/community/Laketown%20Wharf%20Properties"
+                  className="block px-8 py-3 border-t border-gray-100"
+                >
+                  Laketown Wharf Properties
+                </Link>
 
-    <Link
-      to="/community/Shores%20Of%20Panama%20Properties"
-      className="block px-8 py-3 border-t border-gray-100"
-    >
-      Shores Of Panama Properties
-    </Link>
-  </div>
-</li>
+                <Link
+                  to="/community/Shores%20Of%20Panama%20Properties"
+                  className="block px-8 py-3 border-t border-gray-100"
+                >
+                  Shores Of Panama Properties
+                </Link>
+              </div>
+            </li>
 
-    <li className="border-b border-gray-200">
-  <Link
-    to="/specials"
-    className="block px-4 py-4 font-medium"
-  >
-    SPECIALS
-  </Link>
-</li>
+            <li className="border-b border-gray-200">
+              <Link to="/specials" className="block px-4 py-4 font-medium">
+                SPECIALS
+              </Link>
+            </li>
 
-<li className="border-b border-gray-200">
-  <Link
-    to="/property-management"
-    className="block px-4 py-4 font-medium"
-  >
-    PROPERTY MANAGEMENT
-  </Link>
-</li>
+            <li className="border-b border-gray-200">
+              <Link
+                to="/property-management"
+                className="block px-4 py-4 font-medium"
+              >
+                PROPERTY MANAGEMENT
+              </Link>
+            </li>
 
-<li className="border-b border-gray-200">
-  <Link
-    to="/about"
-    className="block px-4 py-4 font-medium"
-  >
-    ABOUT US
-  </Link>
-</li>
+            <li className="border-b border-gray-200">
+              <Link to="/about" className="block px-4 py-4 font-medium">
+                ABOUT US
+              </Link>
+            </li>
 
-<li className="border-b border-gray-200">
-  <Link
-    to="/contact"
-    className="block px-4 py-4 font-medium"
-  >
-    CONTACT
-  </Link>
-</li>
+            <li className="border-b border-gray-200">
+              <Link to="/contact" className="block px-4 py-4 font-medium">
+                CONTACT
+              </Link>
+            </li>
 
-    <li className="border-b border-gray-200">
-  <button
-    onClick={() =>
-      setOpenMenu(
-        openMenu === "guide"
-          ? null
-          : "guide"
-      )
-    }
-    className="
+            <li className="border-b border-gray-200">
+              <button
+                onClick={() =>
+                  setOpenMenu(openMenu === "guide" ? null : "guide")
+                }
+                className="
       w-full
       flex
       justify-between
@@ -551,50 +512,41 @@ const filteredProperties = properties.filter((item) => {
       py-4
       font-medium
     "
-  >
-    AREA GUIDE
-
-    <ChevronRight
-      className={`
+              >
+                AREA GUIDE
+                <ChevronRight
+                  className={`
         w-5 h-5
         transition-all
         duration-300
-        ${
-          openMenu === "guide"
-            ? "rotate-90"
-            : ""
-        }
+        ${openMenu === "guide" ? "rotate-90" : ""}
       `}
-    />
-  </button>
+                />
+              </button>
 
-  <div
-    className={`
+              <div
+                className={`
       overflow-hidden
       transition-all
       duration-300
-      ${
-        openMenu === "guide"
-          ? "max-h-96"
-          : "max-h-0"
-      }
+      ${openMenu === "guide" ? "max-h-96" : "max-h-0"}
     `}
-  >
-    <Link
-              to="/area-guide/activities"
-              className="
+              >
+                <Link
+                  to="/area-guide/activities"
+                  className="
       flex justify-between items-center
       px-5 py-4
       hover:bg-[#3c8a8c]/5
       transition
     "
-            >
-              <span>Activities</span>
-            </Link>
-  </div>
-</li>
+                >
+                  <span>Activities</span>
+                </Link>
+              </div>
+            </li>
 
-      {/* <Link
+            {/* <Link
         to="/property-management"
         className="
           flex
@@ -610,7 +562,7 @@ const filteredProperties = properties.filter((item) => {
         PROPERTY MANAGEMENT
       </Link> */}
 
-      {/* <Link
+            {/* <Link
         to="/about"
         className="
           flex
@@ -626,9 +578,9 @@ const filteredProperties = properties.filter((item) => {
         ABOUT US
       </Link> */}
 
-      <Link
-        to="/contact"
-        className="
+            <Link
+              to="/contact"
+              className="
           flex
           items-center
           justify-center
@@ -640,33 +592,32 @@ const filteredProperties = properties.filter((item) => {
           font-semibold
           shadow-lg
         "
-      >
-        CONTACT US
-      </Link>
-    </ul>
-  </div>
+            >
+              CONTACT US
+            </Link>
+          </ul>
+        </div>
 
-  {/* FOOTER */}
-  <div className="p-5 border-t mt-6">
-    <div className="text-center">
-      <div className="font-bold text-lg text-[#3c8a8c]">
-        +1 850 866 2077
-      </div>
+        {/* FOOTER */}
+        <div className="p-5 border-t mt-6">
+          <div className="text-center">
+            <div className="font-bold text-lg text-[#3c8a8c]">
+              +1 850 866 2077
+            </div>
 
-      <div className="text-sm text-gray-500 mt-1">
-        Call us anytime
-      </div>
-    </div>
-  </div>
-</div>      {/* Custom CSS for the logo shape */}
+            <div className="text-sm text-gray-500 mt-1">Call us anytime</div>
+          </div>
+        </div>
+      </div>{" "}
+      {/* Custom CSS for the logo shape */}
       <style>{`
         .clip-shape-custom {
           clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 50% 100%, 0% 75%);
         }
       `}</style>
-     {showSearch && (
-  <div
-    className="
+      {showSearch && (
+        <div
+          className="
       fixed
       inset-0
       bg-black/50
@@ -677,10 +628,10 @@ const filteredProperties = properties.filter((item) => {
       justify-center
       pt-24
     "
-    onClick={() => setShowSearch(false)}
-  >
-    <div
-      className="
+          onClick={() => setShowSearch(false)}
+        >
+          <div
+            className="
         bg-white
         w-full
         max-w-2xl
@@ -688,17 +639,17 @@ const filteredProperties = properties.filter((item) => {
         shadow-2xl
         overflow-hidden
       "
-      onClick={(e) => e.stopPropagation()}
-    >
-      {/* Header */}
-     <div className="p-5 border-b flex items-center gap-3">
-  <input
-    autoFocus
-    type="text"
-    placeholder="Search property..."
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-    className="
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="p-5 border-b flex items-center gap-3">
+              <input
+                autoFocus
+                type="text"
+                placeholder="Search property..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="
       flex-1
       border
       border-gray-200
@@ -710,14 +661,14 @@ const filteredProperties = properties.filter((item) => {
       focus:ring-2
       focus:ring-[#3c8a8c]
     "
-  />
+              />
 
-  <button
-    onClick={() => {
-      setShowSearch(false);
-      setSearchTerm("");
-    }}
-    className="
+              <button
+                onClick={() => {
+                  setShowSearch(false);
+                  setSearchTerm("");
+                }}
+                className="
       w-12
       h-12
       flex
@@ -729,23 +680,23 @@ const filteredProperties = properties.filter((item) => {
       hover:text-red-500
       transition
     "
-  >
-    <X size={22} />
-  </button>
-</div>
+              >
+                <X size={22} />
+              </button>
+            </div>
 
-      {/* Results */}
-      <div className="max-h-[500px] overflow-y-auto">
-        {filteredProperties.length > 0 ? (
-          filteredProperties.map((item) => (
-            <Link
-              key={item._id}
-              to={`/property/${item._id}`}
-              onClick={() => {
-                setShowSearch(false);
-                setSearchTerm("");
-              }}
-              className="
+            {/* Results */}
+            <div className="max-h-[500px] overflow-y-auto">
+              {filteredProperties.length > 0 ? (
+                filteredProperties.map((item) => (
+                  <Link
+                    key={item._id}
+                    to={`/property/${item._id}`}
+                    onClick={() => {
+                      setShowSearch(false);
+                      setSearchTerm("");
+                    }}
+                    className="
                 block
                 px-5
                 py-4
@@ -753,25 +704,23 @@ const filteredProperties = properties.filter((item) => {
                 hover:bg-gray-50
                 transition
               "
-            >
-              <div className="font-semibold">
-                {item.property?.title}
-              </div>
+                  >
+                    <div className="font-semibold">{item.property?.title}</div>
 
-              <div className="text-sm text-gray-500 mt-1">
-                {item.property?.community}
-              </div>
-            </Link>
-          ))
-        ) : (
-          <div className="p-6 text-center text-gray-500">
-            No properties found
+                    <div className="text-sm text-gray-500 mt-1">
+                      {item.property?.community}
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <div className="p-6 text-center text-gray-500">
+                  No properties found
+                </div>
+              )}
+            </div>
           </div>
-        )}
-      </div>
-    </div>
-  </div>
-)}
+        </div>
+      )}
     </nav>
   );
 };

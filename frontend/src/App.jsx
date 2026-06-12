@@ -62,7 +62,7 @@ function App() {
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/community/:slug" element={<CommunityPage />} />
         <Route path="/Specials" element={<SpecialsPage />} />
-        <Route path="/area-guide/activities" element={<ActivitiesSection />} />
+        <Route path="/activities" element={<ActivitiesSection />} />
         <Route path="/property-management" element={<PropertyManagement />} />
         <Route path="/about" element={<AboutSlider />} />
         <Route path="/contact" element={<Contact />} />

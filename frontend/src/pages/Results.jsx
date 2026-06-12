@@ -3,6 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import api from "../api/axios.js";
 import PropertyMap from "../components/PropertyMap";
 import { ArrowUpRight } from "lucide-react";
+import heroImage from "../assets/Shores-img/img4.jpeg";
 
 const ResultsPage = () => {
   const location = useLocation();
@@ -58,8 +59,7 @@ const ResultsPage = () => {
       <section
         className="relative h-[53vh] bg-cover bg-center flex items-center justify-center text-white text-center"
         style={{
-          backgroundImage:
-            "url(https://donnadanielrealty.com/gallery-uploads/1779470823258-32899616.webp)",
+        backgroundImage: `url(${heroImage})`,
         }}
       >
         <div className="absolute inset-0 bg-black/40" />
