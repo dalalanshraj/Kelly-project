@@ -311,9 +311,9 @@ const Navbar = () => {
           <li className="cursor-pointer" onClick={() => setShowSearch(true)}>
             <Search className="w-5 h-5" />
           </li>
-          <li className="cursor-pointer">
+          {/* <li className="cursor-pointer">
             <Mail className="w-5 h-5" />
-          </li>
+          </li> */}
         </ul>
 
         {/* Mobile Navbar */}
@@ -329,7 +329,7 @@ const Navbar = () => {
             {/* <Phone className="w-6 h-6" /> */}
             <div className="border-l border-gray-300 h-6"></div>
             {/* <Search className="w-6 h-6 text-[#3c8a8c]" /> */}
-            <Mail className="w-6 h-6" />
+            {/* <Mail className="w-6 h-6" /> */}
             <Menu
               className="w-6 h-6 cursor-pointer"
               onClick={() => setMenuOpen(true)}

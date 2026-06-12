@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Twitter } from 'lucide-react';
+import { Facebook, Twitter , Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LOGO from "../assets/Logo/LOGO.png"
 
@@ -43,11 +43,11 @@ const Footer = () => {
               </Link>
             </div>
             <div className="flex space-x-4 mt-6">
-              <a href="#" className="p-2 rounded-full bg-[#3c8a8c] text-white hover:bg-teal-700 transition-colors">
+              <a href="https://www.facebook.com/bestinpcbrentals/" className="p-2 rounded-full bg-[#3c8a8c] text-white hover:bg-teal-700 transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
               <a href="#" className="p-2 rounded-full bg-[#3c8a8c] text-white hover:bg-teal-700 transition-colors">
-                <Twitter className="w-5 h-5" />
+                <Instagram className="w-5 h-5" />
               </a>
             </div>
             

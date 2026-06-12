@@ -85,7 +85,7 @@ export default function TestimonialCarousel() {
 
              {review.stayDate && (
   <p className="text-xs text-black mt-3">
-   stayDate: {new Date(review.stayDate).toLocaleDateString("en-CA")}
+   Stay Date: {new Date(review.stayDate).toLocaleDateString("en-CA")}
   </p>
 )}
             </div>
