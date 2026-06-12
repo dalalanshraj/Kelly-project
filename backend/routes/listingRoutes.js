@@ -112,8 +112,7 @@ router.get("/communities/all", async (req, res) => {
   }
 });
 router.get("/community/:community", async (req, res) => {
-   console.log("COMMUNITY ROUTE HIT");
-  res.json({ success: true });
+  
   try {
 
     const community = decodeURIComponent(
