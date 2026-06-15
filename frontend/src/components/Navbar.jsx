@@ -245,7 +245,7 @@ const Navbar = () => {
           className="
     hidden md:block
     absolute
-    left-1/2
+    left-[51%]
     top-0
     -translate-x-1/2
     z-50
