@@ -223,15 +223,9 @@ comfortable and unforgettable stay by the Gulf.
         </div>
       </div>
     </section>
-
-
-
     <CategorySection
 
     />
-
-
-
     <TestimonialCarousel />
     {/* <FeaturedProperties /> */}
     </>

@@ -6,8 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import InquiryModal from "./InquiryModal";
 
 export default function BookingWidget({ listing }) {
-  console.log("FULL LISTING =>", listing);
-  console.log("DEAL =>", listing?.deal);
+  
   const [calendar, setCalendar] = useState([]);
   const [checkIn, setCheckIn] = useState(null);
   const [checkOut, setCheckOut] = useState(null);
@@ -109,30 +108,7 @@ export default function BookingWidget({ listing }) {
           >
             {listing?.property?.title}
           </h2>
-         {listing?.deal && (
-  <div
-    className="
-      mt-4
-      bg-yellow-400
-      text-black
-      px-4
-      py-3
-      rounded-xl
-      font-semibold
-    "
-  >
-    🎉 {listing.deal.title}
-
-    <div className="mt-1 text-sm">
-      Save $
-      {Number(
-        listing.deal.originalRate -
-        listing.deal.discountedRate
-      ).toLocaleString()}
-      {" "}per night
-    </div>
-  </div>
-)}
+      
 
           <div className="flex gap-4 mt-3 text-sm opacity-90">
             <span>🛏 {listing?.property?.bedrooms || 0} Beds</span>
@@ -274,32 +250,7 @@ export default function BookingWidget({ listing }) {
             <div className="text-center py-6">Calculating Price...</div>
           ) : preview ? (
             <>
-            {listing?.deal && (
-  <div
-    className="
-      mb-5
-      border
-      border-green-200
-      bg-green-50
-      rounded-xl
-      p-4
-    "
-  >
-    <div className="font-bold text-green-700">
-      Active Deal
-    </div>
-
-    <div className="text-sm mt-1">
-      {listing.deal.title}
-    </div>
-
-    {listing.deal.description && (
-      <div className="text-xs text-gray-600 mt-2">
-        {listing.deal.description}
-      </div>
-    )}
-  </div>
-)}
+         
               {/* PRICE BOX */}
 
               {/* PRICE BREAKDOWN */}
@@ -391,6 +342,60 @@ export default function BookingWidget({ listing }) {
           ) : null}
         </div>
       </div>
+      <style>{` 
+      /* Main Calendar */
+.react-datepicker {
+  border: none !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,.15);
+  font-family: inherit;
+}
+
+/* Header */
+.react-datepicker__header {
+  background: #3c8a8c !important;
+  border-bottom: none !important;
+  padding: 18px 0 !important;
+  position: relative;
+}
+
+/* Month title */
+.react-datepicker__current-month {
+  color: #fff !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+}
+
+/* Days */
+.react-datepicker__day-name {
+  color: white !important;
+  font-weight: 600;
+}
+  .react-datepicker__navigation {
+  top: 14px !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50%;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-datepicker__navigation--previous {
+  left: 40px !important;
+}
+
+.react-datepicker__navigation--next {
+  right: 40px !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #fff !important;
+  border-width: 2px 2px 0 0 !important;
+}
+      `}</style> 
     </div>
   );
 }

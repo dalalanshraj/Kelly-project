@@ -119,8 +119,6 @@ const handleSearch = () => {
   setFilteredListings(availableListings);
 };
 
-  
-
   const communityHeroImages = {
     "Seychelles Properties": SeychellesHero,
     "Laketown Wharf Properties": LaketownHero,

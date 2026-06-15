@@ -44,18 +44,9 @@ const PropertyDetails = () => {
     alert("Booking submitted! Check the console for details.");
   };
   useEffect(() => {
-  if (listing) {
-    console.log(
-      "FULL LISTING =>",
-      listing
-    );
-
-    console.log(
-      "DEAL =>",
-      listing.deal
-    );
-  }
-}, [listing]);
+    if (listing) {
+    }
+  }, [listing]);
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -133,6 +124,32 @@ const PropertyDetails = () => {
   </div>
 
 </div> */}
+         {listing?.deal && (
+  <div
+    className="
+      mb-5
+      border
+      border-green-200
+      bg-green-50
+      rounded-xl
+      p-8
+    "
+  >
+    <div className="font-bold text-green-700 text-xl">
+      Active Deal
+    </div>
+
+    <div className="text-sm mt-1">
+      {listing.deal.title}
+    </div>
+
+    {listing.deal.description && (
+      <div className="text-xs text-gray-600 mt-2">
+        {listing.deal.description}
+      </div>
+    )}
+  </div>
+)}
 
             {/* Description */}
             <div className="mb-10">
@@ -257,7 +274,7 @@ const PropertyDetails = () => {
               transition
             "
                       >
-                         ✓ {item}
+                        ✓ {item}
                       </span>
                     ))}
                   </div>
@@ -595,19 +612,18 @@ const PropertyDetails = () => {
                 </div>
               )}
             </div>
-              {/* VIDEO */}
-          {listing.video?.youtube && (
-            <div className="mt-10">
-              <h2 className="text-2xl font-semibold mb-4">Property Video</h2>
-              <iframe
-                src={getYoutubeEmbed(listing.video.youtube)}
-                className="w-full h-80 rounded-xl border"
-                allowFullScreen
-                title="video"
-              />
-            </div>
-          )}
-
+            {/* VIDEO */}
+            {listing.video?.youtube && (
+              <div className="mt-10">
+                <h2 className="text-2xl font-semibold mb-4">Property Video</h2>
+                <iframe
+                  src={getYoutubeEmbed(listing.video.youtube)}
+                  className="w-full h-80 rounded-xl border"
+                  allowFullScreen
+                  title="video"
+                />
+              </div>
+            )}
 
             {/* MAP */}
             {listing?.location?.lat && listing?.location?.lng && (
@@ -631,7 +647,7 @@ const PropertyDetails = () => {
 
           {/* RIGHT */}
           <div className="w-full lg:w-[480px] flex-shrink-0">
-            <div className="sticky top-28">
+            <div className="sticky top-28 ">
               <BookingWidget listing={listing} />
             </div>
           </div>
