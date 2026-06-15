@@ -12,8 +12,7 @@ dotenv.config();
 export const adminLogin = async (req, res) => {
    console.log(req.body);
   const { email, password } = req.body;
-  console.log("EMAIL:", email);
-console.log("PASSWORD:", password);
+  
 
   const admin = await User.findOne({ email });
   if (!admin || (admin.role !== "admin" && admin.role !== "superadmin")) {
