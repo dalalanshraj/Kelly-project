@@ -46,9 +46,9 @@ const Footer = () => {
               <a href="https://www.facebook.com/bestinpcbrentals/" className="p-2 rounded-full bg-[#3c8a8c] text-white hover:bg-teal-700 transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="p-2 rounded-full bg-[#3c8a8c] text-white hover:bg-teal-700 transition-colors">
+              {/* <a href="#" className="p-2 rounded-full bg-[#3c8a8c] text-white hover:bg-teal-700 transition-colors">
                 <Instagram className="w-5 h-5" />
-              </a>
+              </a> */}
             </div>
             
           </div>
