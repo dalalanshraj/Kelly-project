@@ -124,9 +124,9 @@ const PropertyDetails = () => {
   </div>
 
 </div> */}
-         {listing?.deal && (
-  <div
-    className="
+            {listing?.deal && (
+              <div
+                className="
       mb-5
       border
       border-green-200
@@ -134,22 +134,20 @@ const PropertyDetails = () => {
       rounded-xl
       p-8
     "
-  >
-    <div className="font-bold text-green-700 text-xl">
-      Active Deal
-    </div>
+              >
+                <div className="font-bold text-green-700 text-xl">
+                  Active Deal
+                </div>
 
-    <div className="text-sm mt-1">
-      {listing.deal.title}
-    </div>
+                <div className="text-sm mt-1">{listing.deal.title}</div>
 
-    {listing.deal.description && (
-      <div className="text-xs text-gray-600 mt-2">
-        {listing.deal.description}
-      </div>
-    )}
-  </div>
-)}
+                {listing.deal.description && (
+                  <div className="text-xs text-gray-600 mt-2">
+                    {listing.deal.description}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Description */}
             <div className="mb-10">

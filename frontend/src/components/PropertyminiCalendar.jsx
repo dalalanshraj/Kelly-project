@@ -189,12 +189,12 @@ const getDateType = (date) => {
     <div className="">
 
 
-<div className="flex flex-col items-center">
+<div className="w-full overflow-hidden flex justify-center">
   <DatePicker
    inline
   selected={null}
   onChange={() => {}}
-   monthsShown={monthsShown}
+   monthsShown={window.innerWidth < 768 ? 1 : 2}
   dayClassName={getDateType}
   minDate={new Date()}
   fixedHeight
@@ -280,7 +280,7 @@ const getDateType = (date) => {
   background: transparent !important;
 
   display: flex !important;
-  gap: 50px;
+gap: 20px;
   justify-content: center;
 }
 .react-datepicker__week {
@@ -411,6 +411,43 @@ const getDateType = (date) => {
 
   pointer-events: none !important;
 
+}
+  @media (max-width: 768px) {
+
+  .react-datepicker {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+
+  .react-datepicker__month-container {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 18px !important;
+  }
+
+  .react-datepicker__day-name {
+    width: 34px !important;
+    line-height: 34px !important;
+    font-size: 12px !important;
+  }
+
+  .react-datepicker__day {
+    width: 34px !important;
+    height: 34px !important;
+    line-height: 34px !important;
+    margin: 1px !important;
+    font-size: 13px !important;
+  }
+
+  .react-datepicker__day.turnover-day {
+    width: 34px !important;
+    height: 34px !important;
+    line-height: 34px !important;
+  }
 }
 
       `}</style>
