@@ -51,7 +51,7 @@ const [selectedAmenity, setSelectedAmenity] =
   
   return (
     <>
-    <section className="relative min-h-[80vh] md:h-[90vh] w-full flex items-center justify-center">
+    <section className="relative min-h-[100vh] md:h-[90vh] w-full flex items-center justify-center">
       {/* Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
@@ -67,7 +67,7 @@ const [selectedAmenity, setSelectedAmenity] =
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-6xl px-4 text-center text-white">
-        <h1 className="text-4xl md:text-6xl font-serif font-semibold mb-8">
+        <h1 className="text-4xl md:text-6xl font-serif font-semibold md:mb-8 mt-29">
           START YOUR VACATION NOW
         </h1>
 
