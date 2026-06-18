@@ -280,7 +280,7 @@ const getDateType = (date) => {
   background: transparent !important;
 
   display: flex !important;
-gap: 20px;
+gap: 60px;
   justify-content: center;
 }
 .react-datepicker__week {
