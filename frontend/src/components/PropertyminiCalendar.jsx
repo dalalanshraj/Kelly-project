@@ -280,7 +280,7 @@ const getDateType = (date) => {
   background: transparent !important;
 
   display: flex !important;
-gap: 60px;
+gap: 20px;
   justify-content: center;
 }
 .react-datepicker__week {
@@ -298,7 +298,12 @@ gap: 60px;
   background: transparent !important;
   border-bottom: none !important;
 }
-
+.react-datepicker__navigation-icon::before {
+  border-color: #fff !important;
+}
+  .react-datepicker__navigation-icon::before {
+  border-color: #222 !important;
+}
 .react-datepicker__current-month {
   font-size: 24px;
   font-weight: 700;
@@ -319,7 +324,25 @@ gap: 60px;
   border-radius: 8px;
 }
 
+.react-datepicker__navigation {
+  top: 18px !important;
+  width: 32px !important;
+  height: 32px !important;
+  z-index: 10 !important;
+}
 
+.react-datepicker__navigation--previous {
+  left: 15px !important;
+}
+
+.react-datepicker__navigation--next {
+  right: 15px !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #ffffff !important;
+  border-width: 2px 2px 0 0 !important;
+}
 
 
 
@@ -403,7 +426,15 @@ gap: 60px;
 
   pointer-events: none;
 }
+.react-datepicker__header {
+  position: relative !important;
+}
 
+.react-datepicker__current-month {
+  padding: 0 55px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
 /* OUTSIDE DAYS */
 .react-datepicker__day--outside-month {
 
@@ -447,6 +478,34 @@ gap: 60px;
     width: 34px !important;
     height: 34px !important;
     line-height: 34px !important;
+  }
+}
+  @media (max-width: 768px) {
+  .react-datepicker__current-month {
+    font-size: 16px !important;
+    padding: 0 50px !important;
+  }
+
+  .react-datepicker__navigation--previous {
+    left: 10px !important;
+  }
+
+  .react-datepicker__navigation--next {
+    right: 5px !important;
+  }
+}
+  @media (max-width: 768px) {
+  .react-datepicker__current-month {
+    padding: 0 65px !important;
+    font-size: 16px !important;
+  }
+
+  .react-datepicker__navigation--previous {
+    left: 8px !important;
+  }
+
+  .react-datepicker__navigation--next {
+    right: 8px !important;
   }
 }
 
