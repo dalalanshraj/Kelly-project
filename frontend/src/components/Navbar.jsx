@@ -241,6 +241,7 @@ const Navbar = () => {
         </ul>
 
         {/* Center Logo (Desktop) */}
+        {/* Center Logo (Desktop) */}
         <div
           className="
     hidden md:block
@@ -252,38 +253,27 @@ const Navbar = () => {
   "
         >
           <Link to="/">
-            {/* Shadow Wrapper */}
-            <div
-              className="
-        relative
-        w-[470px]
-        h-[190px]
-         
-      
-      "
-            >
-              {/* Shape */}
+            <div className="relative w-[220px] h-[220px]">
               <div
                 className="
-    w-[420px]
-    h-[190px]
-    bg-white
-    relative
-  "
-                style={{
-                  clipPath: "polygon(0 0,100% 0,88% 75%,50% 88%,12% 75%)",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
-                }}
+          w-[180px]
+          h-[180px]
+          bg-white
+          rounded-full
+          shadow-[0_10px_0px_rgba(0,0,0,0.12)]
+          flex
+          items-center
+          justify-center
+          border-4
+          border-white
+        "
               >
                 <img
                   src={LOGO}
                   alt="logo"
                   className="
-            absolute
-            left-1/2
-            top-8
-            -translate-x-1/2
-            h-[110px]
+            w-[150px]
+            h-[150px]
             object-contain
           "
                 />
@@ -316,26 +306,69 @@ const Navbar = () => {
           </li> */}
         </ul>
 
-        {/* Mobile Navbar */}
-        <div className="md:hidden relative flex items-center justify-center w-full h-16">
-          <Link to={"/"} className="flex items-center">
-            <img
-              src={LOGO}
-              alt="Seahorse Logo"
-              className="h-14 object-contain"
-            />
-          </Link>
-          <div className="flex items-center space-x-4">
-            {/* <Phone className="w-6 h-6" /> */}
-            <div className="border-l border-gray-300 h-6"></div>
-            {/* <Search className="w-6 h-6 text-[#3c8a8c]" /> */}
-            {/* <Mail className="w-6 h-6" /> */}
-            <Menu
-              className="w-6 h-6 cursor-pointer"
-              onClick={() => setMenuOpen(true)}
-            />
-          </div>
-        </div>
+       {/* Mobile Navbar */}
+<div className="md:hidden w-full h-[82px] px-5 flex items-center border-b border-gray-100 bg-white">
+
+  {/* Logo */}
+  <Link
+    to="/"
+    className="flex-shrink-0"
+  >
+    <img
+      src={LOGO}
+      alt="logo"
+      className="h-[98px] w-auto object-contain"
+    />
+  </Link>
+
+  {/* Right Section */}
+  <div className="ml-auto flex items-center gap-5">
+
+    {/* Search */}
+    <button
+      onClick={() => setShowSearch(true)}
+      className="
+        w-11
+        h-11
+        rounded-full
+        border
+        border-gray-200
+        flex
+        items-center
+        justify-center
+        hover:bg-gray-50
+        transition
+      "
+    >
+      <Search
+        size={20}
+        className="text-gray-700"
+      />
+    </button>
+
+    {/* Menu Button */}
+    <button
+      onClick={() => setMenuOpen(true)}
+      className="
+        h-11
+        px-5
+        rounded-full
+        bg-[#3c8a8c]
+        text-white
+        flex
+        items-center
+        gap-2
+        font-medium
+        shadow-md
+      "
+    >
+      <Menu size={18} />
+      <span>Menu</span>
+    </button>
+
+  </div>
+
+</div>
       </div>
       {/* BACKDROP */}
       {menuOpen && (
@@ -372,43 +405,38 @@ const Navbar = () => {
       >
         {/* HEADER */}
         <div
-          className="
-      sticky
-      top-0
-     bg-[#fff]
-      text-white
-      p-5
+  className="
+    sticky
+    top-0
+    bg-white
+    p-4
+    flex
+    items-center
+    justify-between
+    border-b
+  "
+>
+  <img
+    src={LOGO}
+    alt="logo"
+    className="h-22 object-contain"
+  />
+
+  <button
+    onClick={() => setMenuOpen(false)}
+    className="
+      w-10
+      h-10
+      rounded-full
+      bg-gray-100
       flex
       items-center
-      justify-between
-      shadow-md
+      justify-center
     "
-        >
-          <div>
-            <Link to={"/"} className="flex items-center">
-              <img
-                src={LOGO}
-                alt="Seahorse Logo"
-                className="h-14 object-contain"
-              />
-            </Link>
-          </div>
-
-          <button
-            onClick={() => setMenuOpen(false)}
-            className="
-        w-10
-        h-10
-        rounded-full
-        bg-white/20
-        flex
-        items-center
-        justify-center
-      "
-          >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
+  >
+    <X size={20} />
+  </button>
+</div>
 
         {/* NAVIGATION */}
         <div className="p-5">
@@ -478,12 +506,13 @@ const Navbar = () => {
             </li>
 
             <li className="border-b border-gray-200">
-              <Link
+              {/* <Link
                 to="/property-management"
                 className="block px-4 py-4 font-medium"
               >
                 PROPERTY MANAGEMENT
               </Link>
+               */}
             </li>
 
             <li className="border-b border-gray-200">

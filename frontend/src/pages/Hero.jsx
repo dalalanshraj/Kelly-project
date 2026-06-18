@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, Home, MapPin } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -19,6 +19,7 @@ const [selectedAmenity, setSelectedAmenity] =
   const [checkOut, setCheckOut] = useState(null);
   const [bedrooms, setBedrooms] = useState("");
   const [location, setLocation] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
 
   
   const handleSearch = () => {
@@ -36,10 +37,21 @@ const [selectedAmenity, setSelectedAmenity] =
 
     navigate(`/results?${params.toString()}`);
   };
+
+  useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+
+  handleResize();
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
   
   return (
     <>
-    <section className="relative h-[90vh] w-full flex items-center justify-center">
+    <section className="relative min-h-[80vh] md:h-[90vh] w-full flex items-center justify-center">
       {/* Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
@@ -76,7 +88,7 @@ const [selectedAmenity, setSelectedAmenity] =
               minDate={new Date()}
               placeholderText="Arrival"
               dateFormat="MMM dd, yyyy"
-              monthsShown={2}
+               monthsShown={isMobile ? 1 : 2}
               showPopperArrow={false}
               onKeyDown={(e) => e.preventDefault()}
               onPaste={(e) => e.preventDefault()}
@@ -100,7 +112,7 @@ const [selectedAmenity, setSelectedAmenity] =
               disabled={!checkIn}
               placeholderText="Departure"
               dateFormat="MMM dd, yyyy"
-              monthsShown={2}
+              monthsShown={isMobile ? 1 : 2}
               showPopperArrow={false}
               onKeyDown={(e) => e.preventDefault()}
               onPaste={(e) => e.preventDefault()}

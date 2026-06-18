@@ -86,7 +86,7 @@ const ResultsPage = () => {
         {!loading && properties.length > 0 && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* ================= MAP ================= */}
-            <div className="lg:col-span-2 h-[80vh] rounded-xl overflow-hidden border">
+            <div className="lg:col-span-2 h-[40vh] md:h-[80vh] rounded-xl overflow-hidden border">
               <PropertyMap
                 properties={properties}
                 selectedProperty={selectedProperty}
