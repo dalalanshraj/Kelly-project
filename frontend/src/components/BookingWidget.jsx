@@ -8,8 +8,8 @@ import InquiryModal from "./InquiryModal";
 export default function BookingWidget({ listing }) {
   
   const [calendar, setCalendar] = useState([]);
-  const [checkIn, setCheckIn] = useState(null);
-  const [checkOut, setCheckOut] = useState(null);
+  const [arrival, setArrival] = useState(null);
+  const [departure, setDeparture] = useState(null);
   const [adults, setAdults] = useState(1);
   const [kids, setKids] = useState(0);
   const [preview, setPreview] = useState(null);
@@ -18,8 +18,8 @@ export default function BookingWidget({ listing }) {
   const [openInquiry, setOpenInquiry] = useState(false);
 
   const nights =
-    checkIn && checkOut
-      ? Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24))
+    arrival && departure
+      ? Math.ceil((departure - arrival) / (1000 * 60 * 60 * 24))
       : 0;
 
   // ===========================
@@ -43,10 +43,10 @@ export default function BookingWidget({ listing }) {
   };
 
   useEffect(() => {
-    if (!checkIn || !checkOut) {
+    if (!arrival || !departure) {
       setPreview(null);
     }
-  }, [checkIn, checkOut]);
+  }, [arrival, departure]);
 
   // ===========================
   // DISABLED DATES
@@ -61,10 +61,10 @@ export default function BookingWidget({ listing }) {
   // ===========================
 
   useEffect(() => {
-    if (!checkIn || !checkOut) return;
+    if (!arrival || !departure) return;
 
     getPrice();
-  }, [checkIn, checkOut]);
+  }, [arrival, departure]);
 
   const getPrice = async () => {
     try {
@@ -73,9 +73,9 @@ export default function BookingWidget({ listing }) {
       const res = await api.post("/bookings/preview", {
         propertyId: listing._id,
 
-        checkIn: checkIn.toISOString().split("T")[0],
+        arrival: arrival.toISOString().split("T")[0],
 
-        checkOut: checkOut.toISOString().split("T")[0],
+        departure: departure.toISOString().split("T")[0],
       });
 
       setPreview(res.data);
@@ -130,10 +130,10 @@ export default function BookingWidget({ listing }) {
               </label>
 
            <DatePicker
-  selected={checkIn}
+  selected={arrival}
   onChange={(date) => {
-    setCheckIn(date);
-    setCheckOut(null);
+    setArrival(date);
+    setDeparture(null);
     setPreview(null);
   }}
   minDate={new Date()}
@@ -164,11 +164,11 @@ export default function BookingWidget({ listing }) {
               </label>
 
              <DatePicker
-  selected={checkOut}
-  onChange={(date) => setCheckOut(date)}
+  selected={departure}
+  onChange={(date) => setDeparture(date)}
   minDate={
-    checkIn
-      ? new Date(checkIn.getTime() + 86400000)
+    arrival
+      ? new Date(arrival.getTime() + 86400000)
       : new Date()
   }
   excludeDates={disabledDates}
@@ -233,7 +233,7 @@ export default function BookingWidget({ listing }) {
 
           {/* NO DATE SELECTED */}
 
-          {!checkIn || !checkOut ? (
+          {!arrival || !departure ? (
             <div className="bg-[#f7fbfb] border border-[#d9eeee] rounded-2xl p-6 text-center">
               <div className="text-4xl mb-2">📅</div>
 
@@ -325,8 +325,8 @@ export default function BookingWidget({ listing }) {
                 <InquiryModal
                   propertyId={listing._id}
                   listing={listing}
-                  checkIn={checkIn}
-                  checkOut={checkOut}
+                  arrival={arrival}
+                  departure={departure}
                   adults={adults}
                   kids={kids}
                   onClose={() => setOpenInquiry(false)}

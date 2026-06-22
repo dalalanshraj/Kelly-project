@@ -11,8 +11,8 @@ import {
 export default function InquiryModal({
   propertyId,
   listing,
-  checkIn,
-  checkOut,
+  arrival,
+  departure,
   adults,
   kids,
   onClose,
@@ -51,8 +51,8 @@ export default function InquiryModal({
         phone: form.phone,
         message: form.message,
 
-        Arrival: checkIn,
-        Departure: checkOut,
+        Arrival: arrival,
+        Departure: departure,
 
         Adults: String(adults),
         Kids: String(kids),
@@ -64,31 +64,48 @@ export default function InquiryModal({
       // EMAILJS
       // ==========================
 
-      const templateParams = {
-        property:
-          listing?.property?.title || "",
+     const toEmail = [
+  listing?.property?.email,
+  listing?.property?.altEmail,
+]
+  .filter(Boolean)
+  .join(",");
 
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
+console.log("Main Email:", listing?.property?.email);
+console.log("Alt Email:", listing?.property?.altEmail);
+console.log("Sending To:", toEmail);
 
-        checkIn:
-          new Date(checkIn).toLocaleDateString(),
+const templateParams = {
+  to_email: toEmail,
 
-        checkOut:
-          new Date(checkOut).toLocaleDateString(),
+  property: listing?.property?.title || "",
 
-        adults,
-        kids,
+  name: form.name,
+  email: form.email,
+  phone: form.phone,
 
-        message: form.message,
-      };
+ Arrival: arrival.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+}),
+
+Departure: departure.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+}),
+
+  adults,
+  kids,
+  message: form.message,
+};
 
       await emailjs.send(
-        "service_dgkqbam",
-        "template_jk0rjyg",
+        "service_8edw3rk",
+        "template_xpkxew4",
         templateParams,
-        "WEcEr8ZPeRbDNB9Ay"
+        "Y9sp1xGP3UZlKY70B"
       );
 
       alert("Inquiry Submitted Successfully");
@@ -186,8 +203,8 @@ export default function InquiryModal({
             </p>
 
             <p className="font-semibold mt-1">
-              {checkIn
-                ? new Date(checkIn).toLocaleDateString()
+              {arrival
+                ? new Date(arrival).toLocaleDateString()
                 : "-"}
             </p>
           </div>
@@ -198,8 +215,8 @@ export default function InquiryModal({
             </p>
 
             <p className="font-semibold mt-1">
-              {checkOut
-                ? new Date(checkOut).toLocaleDateString()
+              {departure
+                ? new Date(departure).toLocaleDateString()
                 : "-"}
             </p>
           </div>

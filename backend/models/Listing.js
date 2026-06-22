@@ -34,6 +34,8 @@ const listingSchema = new mongoose.Schema(
           bedrooms: Number,
           bathrooms: Number,
           maxSleeps: Number,
+          email: String,
+          phone:String,
           altEmail: String,
           altPhone: String,
         },
