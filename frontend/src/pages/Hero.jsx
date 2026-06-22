@@ -20,7 +20,16 @@ const [selectedAmenity, setSelectedAmenity] =
   const [bedrooms, setBedrooms] = useState("");
   const [location, setLocation] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+  const [isMobiles, setIsMobiles] = useState(window.innerWidth < 768);
 
+  useEffect(() => {
+  const handleResize = () => {
+    setIsMobiles(window.innerWidth < 768);
+  };
+
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
   
   const handleSearch = () => {
     if (!checkIn || !checkOut) {
@@ -155,16 +164,15 @@ const [selectedAmenity, setSelectedAmenity] =
       <div className="max-w-7xl w-full flex flex-col md:flex-row shadow-lg rounded-xl overflow-hidden bg-white pt-40">
         
         {/* Left Side (Image) */}
-        <div 
-          className="relative w-full h-90 md:w-1/2 md:h-auto bg-cover bg-center"
-          style={{ 
-             backgroundImage: `url(${CommunityImg})`,
-    backgroundAttachment: "fixed",
-          }}
-        >
-          {/* Optional: Add an overlay for a subtle effect */}
-          <div className="absolute inset-0 bg-black opacity-10"></div>
-        </div>
+       <div
+  className="relative w-full h-96 md:w-1/2 md:h-auto bg-cover bg-center"
+  style={{
+    backgroundImage: `url(${CommunityImg})`,
+    backgroundAttachment: isMobiles ? "scroll" : "fixed",
+  }}
+>
+  <div className="absolute inset-0 bg-black/10"></div>
+</div>
 
         {/* Right Side (Text Content) */}
         <div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16">
@@ -223,16 +231,15 @@ comfortable and unforgettable stay by the Gulf.
         </div>
         
         {/* Right Side (Image) */}
-        <div 
-          className="relative w-full h-80 md:w-1/2 md:h-auto bg-cover bg-center order-1 md:order-2"
-          style={{ 
-          backgroundImage: `url(${LuxuryCoastalImg})`,
-    backgroundAttachment: "fixed",
-          }}
-        >
-          {/* Optional: Add an overlay */}
-          <div className="absolute inset-0 bg-black opacity-10"></div>
-        </div>
+       <div
+  className="relative w-full h-80 md:w-1/2 md:h-auto bg-cover bg-center order-1 md:order-2"
+  style={{
+    backgroundImage: `url(${LuxuryCoastalImg})`,
+    backgroundAttachment: isMobiles ? "scroll" : "fixed",
+  }}
+>
+  <div className="absolute inset-0 bg-black/10"></div>
+</div>
       </div>
     </section>
     <CategorySection

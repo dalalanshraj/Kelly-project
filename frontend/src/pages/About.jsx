@@ -1,53 +1,66 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 import About from "../assets/Laketown-Img/img3.jpg";
 import Values from "../assets/Laketown-Img/img4.jpeg";
 import whyChooseUs from "../assets/Shores-img/img3.jpg";
 import heroImage from "../assets/Shores-img/img4.jpeg";
+import CommunityImg from "../assets/Seychelles-img/img2.jpg"
+import LuxuryCoastalImg from "../assets/Laketown-Img/img1.jpeg"
 
 export default function AboutSlider() {
   const [current, setCurrent] = useState(0);
-
-  const slides = [
-    {
-      title: "ABOUT OUR COMPANY",
-      description:
-        "My name is Kelly Breedwell, and I am a PCB local and property manager. I live less than 10 minutes from our condos, so I am just a phone call away if you need me during your stay. Feel free to follow me on Facebook as well. If you would like a quote, please send all inquiries via the platform. This way I can keep track of all emails.",
-      image: About,
-    },
-    {
-      title: "OUR CORE VALUES",
-      description:
-        "Our success is built on Integrity, Reliability, and Personalized Service. We are committed to providing homeowners with transparent communication and professional property management while ensuring every guest enjoys a memorable vacation experience. By focusing on trust, attention to detail, and exceptional customer care, we create positive experiences that keep guests returning year after year.",
-      image: Values,
-    },
-    {
-      title: "WHY CHOOSE US",
-      description:
-        "As a local property manager, I take pride in providing personalized service, quick communication, and well-maintained vacation rentals. From booking assistance to local recommendations, I'm here to ensure your stay is comfortable, convenient, and memorable. With prime locations, exceptional guest support, and a focus on quality, our goal is to make every vacation experience one you'll want to repeat year after year.",
-      image: whyChooseUs,
-    },
-  ];
+   const [isMobiles, setIsMobiles] = useState(window.innerWidth < 768);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 7000);
-
-    return () => clearInterval(timer);
-  }, [slides.length]);
-
-  const nextSlide = () => {
-    if (current < slides.length - 1) {
-      setCurrent(current + 1);
-    }
+  const handleResize = () => {
+    setIsMobiles(window.innerWidth < 768);
   };
 
-  const prevSlide = () => {
-    if (current > 0) {
-      setCurrent(current - 1);
-    }
-  };
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
+  // const slides = [
+  //   {
+  //     title: "ABOUT OUR COMPANY",
+  //     description:
+  //       "My name is Kelly Breedwell, and I am a PCB local and property manager. I live less than 10 minutes from our condos, so I am just a phone call away if you need me during your stay. Feel free to follow me on Facebook as well. If you would like a quote, please send all inquiries via the platform. This way I can keep track of all emails.",
+  //     image: About,
+  //   },
+  //   {
+  //     title: "OUR CORE VALUES",
+  //     description:
+  //       "Our success is built on Integrity, Reliability, and Personalized Service. We are committed to providing homeowners with transparent communication and professional property management while ensuring every guest enjoys a memorable vacation experience. By focusing on trust, attention to detail, and exceptional customer care, we create positive experiences that keep guests returning year after year.",
+  //     image: Values,
+  //   },
+  //   {
+  //     title: "WHY CHOOSE US",
+  //     description:
+  //       "As a local property manager, I take pride in providing personalized service, quick communication, and well-maintained vacation rentals. From booking assistance to local recommendations, I'm here to ensure your stay is comfortable, convenient, and memorable. With prime locations, exceptional guest support, and a focus on quality, our goal is to make every vacation experience one you'll want to repeat year after year.",
+  //     image: whyChooseUs,
+  //   },
+  // ];
+
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  //   }, 7000);
+
+  //   return () => clearInterval(timer);
+  // }, [slides.length]);
+
+  // const nextSlide = () => {
+  //   if (current < slides.length - 1) {
+  //     setCurrent(current + 1);
+  //   }
+  // };
+
+  // const prevSlide = () => {
+  //   if (current > 0) {
+  //     setCurrent(current - 1);
+  //   }
+  // };
 
   return (
     <>
@@ -83,10 +96,10 @@ export default function AboutSlider() {
       </section>
 
       {/* About Slider */}
-      <section className="bg-[#f5f5f5] py-16 md:py-24 overflow-hidden">
+      {/* <section className="bg-[#f5f5f5] py-16 md:py-24 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
           <div className="relative min-h-[650px] lg:min-h-[700px]">
-            {/* Image */}
+         
             <div className="w-full lg:w-[58%]">
               <AnimatePresence mode="wait">
                 <motion.img
@@ -112,7 +125,7 @@ export default function AboutSlider() {
               </AnimatePresence>
             </div>
 
-            {/* Content Card */}
+    m
             <AnimatePresence mode="wait">
               <motion.div
                 key={`content-${current}`}
@@ -151,7 +164,7 @@ export default function AboutSlider() {
                   {slides[current].description}
                 </p>
 
-                {/* Dots */}
+          
                 <div className="flex gap-3 mb-8">
                   {slides.map((_, index) => (
                     <button
@@ -169,7 +182,7 @@ export default function AboutSlider() {
                   ))}
                 </div>
 
-                {/* Buttons */}
+               
                 <div className="flex flex-wrap gap-4">
                   {current > 0 && (
                     <button
@@ -207,7 +220,98 @@ export default function AboutSlider() {
             </AnimatePresence>
           </div>
         </div>
-      </section>
+      </section> */}
+
+        <section className="w-full flex justify-center py-12 md:py-24 px-4 sm:px-6 lg:px-8 ">
+      <div className="max-w-7xl w-full flex flex-col md:flex-row shadow-lg rounded-xl overflow-hidden bg-white pt-40">
+        
+        {/* Left Side (Image) */}
+       <div
+  className="relative w-full h-96 md:w-1/2 md:h-auto bg-cover bg-center"
+  style={{
+    backgroundImage: `url(${About})`,
+    backgroundAttachment: isMobiles ? "scroll" : "fixed",
+  }}
+>
+  <div className="absolute inset-0 bg-black/10"></div>
+</div>
+
+        {/* Right Side (Text Content) */}
+        <div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16">
+          <h2 className="text-4xl md:text-5xl font-serif text-gray-800 tracking-wide mb-6">
+            ABOUT OUR COMPANY
+          </h2>
+         <p className="text-lg leading-relaxed mb-8">
+  My name is Kelly Breedwell, and I am a PCB local and property manager. I live less than 10 minutes from our condos, so I am just a phone call away if you need me during your stay. Feel free to follow me on Facebook as well. If you would like a quote, please send all inquiries via the platform. This way I can keep track of all emails.
+</p>
+          <Link to={"/contact"}
+            className="inline-block px-8 py-3 bg-gray-700 text-white font-medium rounded hover:bg-gray-800 transition-colors duration-300"
+          >
+            CONTACT US
+          </Link>
+        </div>
+      </div>
+    </section>
+    <section className="w-full flex justify-center py-12 md:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl w-full flex flex-col md:flex-row shadow-lg rounded-xl overflow-hidden bg-white">
+        
+        {/* Left Side (Text Content) */}
+        <div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16 order-2 md:order-1">
+          <h2 className="text-4xl md:text-5xl font-serif text-gray-800 tracking-wide mb-6">
+           OUR CORE VALUES
+          </h2>
+          <p className="text-lg leading-relaxed mb-8">
+ Our success is built on Integrity, Reliability, and Personalized Service. We are committed to providing homeowners with transparent communication and professional property management while ensuring every guest enjoys a memorable vacation experience. By focusing on trust, attention to detail, and exceptional customer care, we create positive experiences that keep guests returning year after year.
+</p>
+          {/* <button
+            className="px-8 py-3 bg-[#3c8a8c] text-white font-medium rounded hover:bg-teal-700 transition-colors duration-300"
+          >
+            FIND YOUR RENTAL
+          </button> */}
+        </div>
+        
+        {/* Right Side (Image) */}
+       <div
+  className="relative w-full h-80 md:w-1/2 md:h-auto bg-cover bg-center order-1 md:order-2"
+  style={{
+    backgroundImage: `url(${Values})`,
+    backgroundAttachment: isMobiles ? "scroll" : "fixed",
+  }}
+>
+  <div className="absolute inset-0 bg-black/10"></div>
+</div>
+      </div>
+    </section>
+
+      <section className="w-full flex justify-center py-12 md:py-24 px-4 sm:px-6 lg:px-8 ">
+      <div className="max-w-7xl w-full flex flex-col md:flex-row shadow-lg rounded-xl overflow-hidden bg-white pt-40">
+        
+        {/* Left Side (Image) */}
+       <div
+  className="relative w-full h-96 md:w-1/2 md:h-auto bg-cover bg-center"
+  style={{
+    backgroundImage: `url(${whyChooseUs})`,
+    backgroundAttachment: isMobiles ? "scroll" : "fixed",
+  }}
+>
+  <div className="absolute inset-0 bg-black/10"></div>
+</div>
+
+        {/* Right Side (Text Content) */}
+        <div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16">
+          <h2 className="text-4xl md:text-5xl font-serif text-gray-800 tracking-wide mb-6">
+            WHY CHOOSE US
+          </h2>
+         <p className="text-lg leading-relaxed mb-8">
+ As a local property manager, I take pride in providing personalized service, quick communication, and well-maintained vacation rentals. From booking assistance to local recommendations, I'm here to ensure your stay is comfortable, convenient, and memorable. With prime locations, exceptional guest support, and a focus on quality, our goal is to make every vacation experience one you'll want to repeat year after year. </p>
+          <Link to={"/contact"}
+            className="inline-block px-8 py-3 bg-gray-700 text-white font-medium rounded hover:bg-gray-800 transition-colors duration-300"
+          >
+            CONTACT US
+          </Link>
+        </div>
+      </div>
+    </section>
     </>
   );
 }
