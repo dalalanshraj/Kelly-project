@@ -16,7 +16,7 @@ export default function Contact() {
 
   const loadEmails = async () => {
     try {
-      const res = await api.get("/listings/admin");
+      const res = await api.get("/listings");
 
       if (!res.data.length) return;
 
