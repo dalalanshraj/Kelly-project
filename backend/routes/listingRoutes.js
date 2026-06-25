@@ -210,7 +210,11 @@ router.put(
   isAdmin,
   toggleListingStatus
 );
-
+router.get("/test", (req, res) => {
+  return res.json({
+    message: "Listing route is working"
+  });
+});
 
 
 export default router;
