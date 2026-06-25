@@ -161,7 +161,7 @@ export const changePassword = async (req, res) => {
 export const getPublicProfile = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select(
-      "name about photo"
+      "name about photo email"
     );
 
     if (!user) {
@@ -173,10 +173,10 @@ export const getPublicProfile = async (req, res) => {
     res.json(user);
 
   } catch (err) {
+    console.log(err);
 
     res.status(500).json({
       message: err.message,
     });
-
   }
 };
