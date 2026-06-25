@@ -163,6 +163,11 @@ router.get(
   isAdmin,
   getAllListings
 );
+router.get("/test", (req, res) => {
+  return res.json({
+    message: "Listing route is working",
+  });
+});
 router.get("/:id", getListingById); 
 router.delete("/:id", deleteListing);
  
@@ -210,11 +215,7 @@ router.put(
   isAdmin,
   toggleListingStatus
 );
-router.get("/test", (req, res) => {
-  return res.json({
-    message: "Listing route is working"
-  });
-});
+ 
 
 
 export default router;
