@@ -154,8 +154,15 @@ router.get("/public", async (req, res) => {
 });
 // TEMP (no auth)
 router.post("/", createListing);
+router.get("/", getPublishedListings);
 
-router.get("/", isAuth, isAdmin, getAllListings);
+// Admin listings
+router.get(
+  "/admin",
+  isAuth,
+  isAdmin,
+  getAllListings
+);
 router.get("/:id", getListingById); 
 router.delete("/:id", deleteListing);
  
