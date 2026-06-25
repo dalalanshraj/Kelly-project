@@ -7,9 +7,12 @@ import whyChooseUs from "../assets/Shores-img/img3.jpg";
 import heroImage from "../assets/Shores-img/img4.jpeg";
 import CommunityImg from "../assets/Seychelles-img/img2.jpg"
 import LuxuryCoastalImg from "../assets/Laketown-Img/img1.jpeg"
+ 
+import api from "../api/axios";
 
 export default function AboutSlider() {
   const [current, setCurrent] = useState(0);
+  const [owner, setOwner] = useState(null);
    const [isMobiles, setIsMobiles] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -19,6 +22,30 @@ export default function AboutSlider() {
 
   window.addEventListener("resize", handleResize);
   return () => window.removeEventListener("resize", handleResize);
+}, []);
+
+useEffect(() => {
+
+  const fetchOwner = async () => {
+
+    try {
+
+      const res = await api.get(
+        "/profile/public/6a22db6ba880b00425dfba54"
+      );
+
+      setOwner(res.data);
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+
+  };
+
+  fetchOwner();
+
 }, []);
 
   // const slides = [
@@ -237,19 +264,46 @@ export default function AboutSlider() {
 </div>
 
         {/* Right Side (Text Content) */}
-        <div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16">
-          <h2 className="text-4xl md:text-5xl font-serif text-gray-800 tracking-wide mb-6">
-            ABOUT OUR COMPANY
-          </h2>
-         <p className="text-lg leading-relaxed mb-8">
-  My name is Kelly Breedwell, and I am a PCB local and property manager. I live less than 10 minutes from our condos, so I am just a phone call away if you need me during your stay. Feel free to follow me on Facebook as well. If you would like a quote, please send all inquiries via the platform. This way I can keep track of all emails.
-</p>
-          <Link to={"/contact"}
-            className="inline-block px-8 py-3 bg-gray-700 text-white font-medium rounded hover:bg-gray-800 transition-colors duration-300"
-          >
-            CONTACT US
-          </Link>
+      {/* Right Side (Text Content) */}
+<div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16">
+
+  {/* Heading + Profile */}
+  <div className="flex items-start justify-between gap-6 mb-6">
+
+    <h2 className="text-4xl md:text-5xl font-serif text-gray-800 tracking-wide">
+      ABOUT OUR COMPANY
+    </h2>
+
+    <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-white shadow-xl flex-shrink-0">
+
+      {owner?.photo ? (
+        <img
+          src={`${import.meta.env.VITE_API_URL}${owner.photo}`}
+          alt={owner.name}
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-white text-3xl font-bold">
+          {owner?.name?.charAt(0)}
         </div>
+      )}
+
+    </div>
+
+  </div>
+
+  <p className="text-lg leading-relaxed mb-8">
+    {owner?.about}
+  </p>
+
+  <Link
+    to="/contact"
+    className="inline-block px-8 py-3 bg-gray-700 text-white font-medium rounded hover:bg-gray-800 transition-colors duration-300"
+  >
+    CONTACT US
+  </Link>
+
+</div>
       </div>
     </section>
     <section className="w-full flex justify-center py-12 md:py-24 px-4 sm:px-6 lg:px-8">

@@ -1,90 +1,85 @@
-import { useRef, useState , useEffect} from "react";
+import { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import heroImage from "../assets/Shores-img/img4.jpeg";
 import api from "../api/axios";
 
 export default function Contact() {
   const formRef = useRef();
-  
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [emails, setEmails] = useState([]);
 
   useEffect(() => {
-  loadEmails();
-}, []);
+    loadEmails();
+  }, []);
 
+  const loadEmails = async () => {
+    try {
+      const res = await api.get("/listings");
 
+      if (!res.data.length) return;
 
-const loadEmails = async () => {
-  try {
-    const res = await api.get("/listings");
+      const property = res.data[0].property;
 
-    if (!res.data.length) return;
+      const recipients = [property.email, property.altEmail].filter(Boolean);
 
-    const property = res.data[0].property;
+      setEmails([...new Set(recipients)]);
 
-    const recipients = [
-      property.email,
-      property.altEmail,
-    ].filter(Boolean);
+      console.log("Recipients:", recipients);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    setEmails([...new Set(recipients)]);
+  const sendEmail = async (e) => {
+    e.preventDefault();
 
-    console.log("Recipients:", recipients);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const sendEmail = async (e) => {
-  e.preventDefault();
-
-  if (!emails.length) {
-    alert("Recipient emails not loaded yet.");
-    return;
-  }
-
-  setLoading(true);
-  setSuccess("");
-
-  try {
-    const templateParams = {
-      name: formRef.current.name.value,
-      email: formRef.current.email.value,
-      phone: formRef.current.phone.value,
-      subject: formRef.current.subject.value,
-      message: formRef.current.message.value,
-    };
-
-    console.log("Recipients:", emails);
-
-    // Send one email to each recipient
-    for (const recipient of emails) {
-      console.log("Sending to:", recipient);
-
-      const response = await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          ...templateParams,
-          to_email: recipient,
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
-
-      console.log("Email sent:", response);
+    if (!emails.length) {
+      alert("Recipient emails not loaded yet.");
+      return;
     }
 
-    setSuccess("Message sent successfully!");
-    formRef.current.reset();
-  } catch (error) {
-    console.error(error);
-    setSuccess("Something went wrong. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+    setLoading(true);
+    setSuccess("");
+
+    try {
+      const templateParams = {
+        name: formRef.current.name.value,
+        email: formRef.current.email.value,
+        phone: formRef.current.phone.value,
+        subject: formRef.current.subject.value,
+        message: formRef.current.message.value,
+      };
+
+      console.log("Recipients:", emails);
+
+      // Send one email to each recipient
+      for (const recipient of emails) {
+        console.log("Sending to:", recipient);
+
+        const response = await emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          {
+            ...templateParams,
+            to_email: recipient,
+          },
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+        );
+
+        console.log("Email sent:", response);
+      }
+
+      setSuccess("Message sent successfully!");
+      formRef.current.reset();
+    } catch (error) {
+      console.error(error);
+      setSuccess("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -115,7 +110,7 @@ const sendEmail = async (e) => {
                   font-serif
             "
           >
-              Contact Us
+            Contact Us
           </h1>
         </div>
       </section>
@@ -147,9 +142,7 @@ const sendEmail = async (e) => {
                 <div>
                   <h3 className="font-semibold mb-2">Address</h3>
 
-                  <p>
-                   5115 Gulf Dr, Panama City, FL, United States, Florida
-                  </p>
+                  <p>5115 Gulf Dr, Panama City, FL, United States, Florida</p>
                 </div>
 
                 {/* <div>
