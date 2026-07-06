@@ -38,7 +38,7 @@ const Footer = () => {
             
                <Link to="/admin/login">
               <button className="px-6 py-2 bg-[#3c8a8c] text-white rounded hover:bg-teal-700 transition-colors duration-300">
-                 Login Owner
+                  Owner Login
               </button>
               </Link>
             </div>
