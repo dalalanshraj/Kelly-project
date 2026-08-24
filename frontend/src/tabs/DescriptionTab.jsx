@@ -60,7 +60,7 @@ export default function DescriptionTab({
    <div className="space-y-5">
 
       <Editor
-        apiKey="2r6x758dp6es0ii45zfw9xu5fy23suwa6g8qxoakazk9tywz"
+        apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
         onInit={(evt, editor) => {
           editorRef.current = editor;
           setEditorReady(true); //  very important
