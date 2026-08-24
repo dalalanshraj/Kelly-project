@@ -1,7 +1,27 @@
 import { Editor } from "@tinymce/tinymce-react";
+
 import { useEffect, useRef, useState } from "react";
+
 import api from "../api/axios.js";
+
 import { useModal } from "../context/ModalContext";
+
+import "tinymce/tinymce";
+import "tinymce/icons/default";
+import "tinymce/themes/silver";
+import "tinymce/models/dom/model";
+
+import "tinymce/plugins/advlist";
+import "tinymce/plugins/autolink";
+import "tinymce/plugins/lists";
+import "tinymce/plugins/link";
+import "tinymce/plugins/charmap";
+import "tinymce/plugins/preview";
+import "tinymce/plugins/searchreplace";
+import "tinymce/plugins/code";
+import "tinymce/plugins/fullscreen";
+import "tinymce/plugins/table";
+import "tinymce/plugins/wordcount";
 
 export default function DescriptionTab({
   listingId,
@@ -9,6 +29,7 @@ export default function DescriptionTab({
   goNextTab,
 }) {
   const editorRef = useRef(null);
+
   const [loading, setLoading] = useState(false);
   const [editorReady, setEditorReady] = useState(false);
 
@@ -29,7 +50,7 @@ export default function DescriptionTab({
     try {
       setLoading(true);
 
-      const content = editorRef.current.getContent();
+      const content = editorRef.current?.getContent() || "";
 
       if (!content || content.trim() === "") {
         showModal("Description cannot be empty");
@@ -38,15 +59,14 @@ export default function DescriptionTab({
 
       await api.put(
         `/listings/${listingId}/description`,
-        { description: content }
+        {
+          description: content,
+        }
       );
-
-      
 
       setTimeout(() => {
         goNextTab();
       }, 1000);
-      return
 
     } catch (err) {
       console.error(err);
@@ -57,18 +77,20 @@ export default function DescriptionTab({
   };
 
   return (
-   <div className="space-y-5">
+    <div className="space-y-5">
 
       <Editor
-        apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
         onInit={(evt, editor) => {
           editorRef.current = editor;
-          setEditorReady(true); //  very important
+          setEditorReady(true);
         }}
         initialValue=""
+        licenseKey="gpl"
         init={{
           height: 350,
+
           menubar: false,
+
           plugins: [
             "advlist",
             "autolink",
@@ -82,8 +104,11 @@ export default function DescriptionTab({
             "table",
             "wordcount",
           ],
+
           toolbar:
             "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link | code",
+
+          branding: false,
         }}
       />
 
