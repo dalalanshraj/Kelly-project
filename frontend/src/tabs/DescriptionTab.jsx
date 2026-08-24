@@ -1,27 +1,9 @@
 import { Editor } from "@tinymce/tinymce-react";
-
 import { useEffect, useRef, useState } from "react";
-
 import api from "../api/axios.js";
-
 import { useModal } from "../context/ModalContext";
 
-import "tinymce/tinymce";
-import "tinymce/icons/default";
-import "tinymce/themes/silver";
-import "tinymce/models/dom/model";
 
-import "tinymce/plugins/advlist";
-import "tinymce/plugins/autolink";
-import "tinymce/plugins/lists";
-import "tinymce/plugins/link";
-import "tinymce/plugins/charmap";
-import "tinymce/plugins/preview";
-import "tinymce/plugins/searchreplace";
-import "tinymce/plugins/code";
-import "tinymce/plugins/fullscreen";
-import "tinymce/plugins/table";
-import "tinymce/plugins/wordcount";
 
 export default function DescriptionTab({
   listingId,
@@ -79,38 +61,38 @@ export default function DescriptionTab({
   return (
     <div className="space-y-5">
 
-      <Editor
-        onInit={(evt, editor) => {
-          editorRef.current = editor;
-          setEditorReady(true);
-        }}
-        initialValue=""
-        licenseKey="gpl"
-        init={{
-          height: 350,
+    <Editor
+  tinymceScriptSrc="/tinymce/tinymce.min.js"
+  licenseKey="gpl"
+  onInit={(evt, editor) => {
+    editorRef.current = editor;
+    setEditorReady(true);
+  }}
+  initialValue=""
+  init={{
+    height: 350,
+    menubar: false,
 
-          menubar: false,
+    plugins: [
+      "advlist",
+      "autolink",
+      "lists",
+      "link",
+      "charmap",
+      "preview",
+      "searchreplace",
+      "code",
+      "fullscreen",
+      "table",
+      "wordcount",
+    ],
 
-          plugins: [
-            "advlist",
-            "autolink",
-            "lists",
-            "link",
-            "charmap",
-            "preview",
-            "searchreplace",
-            "code",
-            "fullscreen",
-            "table",
-            "wordcount",
-          ],
+    toolbar:
+      "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link | code",
 
-          toolbar:
-            "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link | code",
-
-          branding: false,
-        }}
-      />
+    branding: false,
+  }}
+/>
 
       <button
         onClick={saveDescription}
