@@ -68,7 +68,7 @@ const ImageGallery = ({ photos = [] }) => {
   return (
     <section className="w-full">
       {/* Main Image */}
-   <div className="relative h-[400px] md:h-[550px] overflow-hidden rounded-xl shadow-lg bg-gray-100">
+   <div className="relative h-[400px] md:h-[700px] overflow-hidden rounded-xl shadow-lg bg-gray-100">
   <img
     src={images[currentImageIndex]}
     alt="Property"
