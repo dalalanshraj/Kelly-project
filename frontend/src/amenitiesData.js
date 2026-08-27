@@ -29,7 +29,7 @@ export const amenitiesData = [
     ],
   },
   {
-    title: "Sleeping arrangements ",
+    title: "Sleeping Arrangements ",
     type: "checkbox",
     name: "bedroom_setup",
     options: [
