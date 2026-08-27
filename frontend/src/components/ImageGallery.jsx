@@ -110,7 +110,7 @@ const ImageGallery = ({ photos = [] }) => {
               onClick={() =>
                 setCurrentImageIndex(index)
               }
-              className={`w-24 h-24 md:w-32 md:h-32 rounded-lg object-cover cursor-pointer transition-all ${
+              className={`w-24 h-24 md:w-32 md:h-32 rounded-lg   cursor-pointer transition-all ${
                 currentImageIndex === index
                   ? "ring-4 ring-[#3c8a8c]"
                   : ""
