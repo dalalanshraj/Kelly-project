@@ -68,33 +68,33 @@ const ImageGallery = ({ photos = [] }) => {
   return (
     <section className="w-full">
       {/* Main Image */}
-      <div className="relative h-[400px] md:h-[700px] overflow-hidden rounded-xl shadow-lg">
-        <img
-          src={images[currentImageIndex]}
-          alt="Property"
-          className="w-full h-full  "
-        />
+   <div className="relative h-[400px] md:h-[550px] overflow-hidden rounded-xl shadow-lg bg-gray-100">
+  <img
+    src={images[currentImageIndex]}
+    alt="Property"
+    className="w-full h-full object-contain"
+  />
 
-        <button
-          onClick={goToPreviousImage}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20"
-        >
-          <ChevronLeft
-            size={50}
-            className="text-white"
-          />
-        </button>
+  <button
+    onClick={goToPreviousImage}
+    className="absolute left-4 top-1/2 -translate-y-1/2 z-20"
+  >
+    <ChevronLeft
+      size={50}
+      className="text-white"
+    />
+  </button>
 
-        <button
-          onClick={goToNextImage}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20"
-        >
-          <ChevronRight
-            size={50}
-            className="text-white"
-          />
-        </button>
-      </div>
+  <button
+    onClick={goToNextImage}
+    className="absolute right-4 top-1/2 -translate-y-1/2 z-20"
+  >
+    <ChevronRight
+      size={50}
+      className="text-white"
+    />
+  </button>
+</div>
 
       {/* Thumbnails */}
       <div className="relative mt-5">
@@ -110,7 +110,7 @@ const ImageGallery = ({ photos = [] }) => {
               onClick={() =>
                 setCurrentImageIndex(index)
               }
-              className={`w-24 h-24 md:w-32 md:h-32 rounded-lg   cursor-pointer transition-all ${
+              className={`w-24 h-24 md:w-32 md:h-32 rounded-lg object-cover cursor-pointer transition-all ${
                 currentImageIndex === index
                   ? "ring-4 ring-[#3c8a8c]"
                   : ""
