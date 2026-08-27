@@ -81,7 +81,7 @@ const ImageGallery = ({ photos = [] }) => {
   >
     <ChevronLeft
       size={50}
-      className="text-white"
+      className="text-black"
     />
   </button>
 
@@ -91,7 +91,7 @@ const ImageGallery = ({ photos = [] }) => {
   >
     <ChevronRight
       size={50}
-      className="text-white"
+      className="text-black"
     />
   </button>
 </div>
