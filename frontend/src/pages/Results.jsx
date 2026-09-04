@@ -15,34 +15,44 @@ const ResultsPage = () => {
   // ==============================
   // FETCH SEARCH RESULTS
   // ==============================
-  useEffect(() => {
-    const loadResults = async () => {
-      try {
-        setLoading(true);
+useEffect(() => {
+  const loadResults = async () => {
+    try {
+      setLoading(true);
 
-        const params = new URLSearchParams(location.search);
+      const params = new URLSearchParams(location.search);
 
-        const checkIn = params.get("checkIn");
-        const checkOut = params.get("checkOut");
+      const checkIn = params.get("checkIn");
+      const checkOut = params.get("checkOut");
+      const bedrooms = params.get("bedrooms");
 
-        const res = await api.get("/search", {
-          params: {
-            checkIn,
-            checkOut,
-          },
-        });
+      console.log("SEARCH PARAMS:", {
+        checkIn,
+        checkOut,
+        bedrooms,
+      });
 
-        setProperties(res.data?.results || []);
-      } catch (err) {
-        console.error("Search error:", err);
-        setProperties([]);
-      } finally {
-        setLoading(false);
-      }
-    };
+      const res = await api.get("/search", {
+        params: {
+          checkIn,
+          checkOut,
+          bedrooms,
+        },
+      });
 
-    loadResults();
-  }, [location.search]);
+      console.log("SEARCH RESULTS:", res.data);
+
+      setProperties(res.data?.results || []);
+    } catch (err) {
+      console.error("Search error:", err);
+      setProperties([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  loadResults();
+}, [location.search]);
 
   // ==============================
   // AUTO SELECT FIRST PROPERTY
@@ -59,7 +69,7 @@ const ResultsPage = () => {
       <section
         className="relative h-[53vh] bg-cover bg-center flex items-center justify-center text-white text-center"
         style={{
-        backgroundImage: `url(${heroImage})`,
+          backgroundImage: `url(${heroImage})`,
         }}
       >
         <div className="absolute inset-0 bg-black/40" />
