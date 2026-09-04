@@ -23,20 +23,20 @@ export const searchController = async (req, res) => {
       });
     }
 
-    const start = new Date(`${checkIn}T00:00:00`);
-    const end = new Date(`${checkOut}T00:00:00`);
+   const start = new Date(`${checkIn}T00:00:00`);
+const end = new Date(`${checkOut}T00:00:00`);
 
-    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-      return res.status(400).json({
-        error: "Invalid dates",
-      });
-    }
+if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+  return res.status(400).json({
+    error: "Invalid dates",
+  });
+}
 
-    if (start >= end) {
-      return res.status(400).json({
-        error: "Check-out must be after check-in",
-      });
-    }
+if (start >= end) {
+  return res.status(400).json({
+    error: "Check-out must be after check-in",
+  });
+}
 
     const listings = await Listing.find({
       status: "published",
