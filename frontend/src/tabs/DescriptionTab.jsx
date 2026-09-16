@@ -1,4 +1,4 @@
-import { Editor } from "@tinymce/tinymce-react";
+ import { Editor } from "@tinymce/tinymce-react";
 import { useEffect, useRef, useState } from "react";
 import api from "../api/axios.js";
 import { useModal } from "../context/ModalContext";
@@ -15,11 +15,23 @@ export default function DescriptionTab({
 
   const { showModal } = useModal();
 
+  // =========================================
+  // SET INITIAL DESCRIPTION
+  // =========================================
+
   useEffect(() => {
-    if (editorReady && editorRef.current && initialData) {
+    if (
+      editorReady &&
+      editorRef.current &&
+      initialData
+    ) {
       editorRef.current.setContent(initialData);
     }
   }, [editorReady, initialData]);
+
+  // =========================================
+  // SAVE DESCRIPTION
+  // =========================================
 
   const saveDescription = async () => {
     if (!listingId) {
@@ -35,7 +47,8 @@ export default function DescriptionTab({
     try {
       setLoading(true);
 
-      const content = editorRef.current.getContent();
+      const content =
+        editorRef.current.getContent();
 
       if (!content || content.trim() === "") {
         showModal("Description cannot be empty");
@@ -52,9 +65,16 @@ export default function DescriptionTab({
       setTimeout(() => {
         goNextTab();
       }, 500);
+
     } catch (err) {
-      console.error("Description save error:", err);
-      showModal("Failed to save description");
+      console.error(
+        "Description save error:",
+        err
+      );
+
+      showModal(
+        "Failed to save description"
+      );
     } finally {
       setLoading(false);
     }
@@ -63,19 +83,29 @@ export default function DescriptionTab({
   return (
     <div className="space-y-5">
 
+      {/* =====================================
+          TINYMCE
+      ====================================== */}
+
       <Editor
         tinymceScriptSrc="/tinymce/tinymce.min.js"
-        licenseKey="gpl"
+
         onInit={(evt, editor) => {
-          console.log("TinyMCE initialized:", editor);
           editorRef.current = editor;
           setEditorReady(true);
         }}
+
         initialValue={initialData || ""}
+
         init={{
           height: 350,
+
           menubar: false,
+
+          license_key: "gpl",
+
           branding: false,
+
           promotion: false,
 
           plugins: [
@@ -110,6 +140,10 @@ export default function DescriptionTab({
         }}
       />
 
+      {/* =====================================
+          SAVE BUTTON
+      ====================================== */}
+
       <button
         type="button"
         onClick={saveDescription}
@@ -121,6 +155,7 @@ export default function DescriptionTab({
           text-white
           font-medium
           transition-all
+          
           ${
             loading || !editorReady
               ? "bg-gray-400 cursor-not-allowed"
@@ -128,7 +163,9 @@ export default function DescriptionTab({
           }
         `}
       >
-        {loading ? "Saving..." : "Save & Continue"}
+        {loading
+          ? "Saving..."
+          : "Save & Continue"}
       </button>
 
     </div>

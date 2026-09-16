@@ -84,7 +84,8 @@ export const getAllListings = async (req, res) => {
         property
         status
         photos
-        reviews
+         reviews
+         amenities
         createdAt
       `)
 

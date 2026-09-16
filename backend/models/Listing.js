@@ -15,15 +15,7 @@ const listingSchema = new mongoose.Schema(
 
           category: String,
 
-          community: {
-            type: String,
-            enum: [
-              "Seychelles Properties",
-              "Laketown Wharf Properties",
-              "Shores Of Panama Properties",
-            ],
-            required: true,
-          },
+          
           calendarSource: {
             type: String,
             enum: ["ical", "manual"],
@@ -38,6 +30,10 @@ const listingSchema = new mongoose.Schema(
           phone:String,
           altEmail: String,
           altPhone: String,
+           iVacationPropertyId: {
+        type: String,
+        default: "",
+      },
         },
         { _id: false },
       ),
@@ -178,6 +174,24 @@ const listingSchema = new mongoose.Schema(
         checkOutDate: Date,
       },
     ],
+    icalSources: [
+  {
+    name: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    url: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    enabled: {
+      type: Boolean,
+      default: true,
+    },
+  },
+],
 
     icalUrl: {
       type: String,
