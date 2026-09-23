@@ -6,6 +6,7 @@ import { useMemo, useCallback } from "react";
 // import { toast } from "react-toastify";
 
 export default function CalendarTab({ listingId }) {
+  const [isMobile, setIsMobile] = useState(false);
   const [blockedDates, setBlockedDates] = useState([]);
   const [calendarSource, setCalendarSource] = useState("manual");
   const [loading, setLoading] = useState(false);
@@ -26,6 +27,21 @@ export default function CalendarTab({ listingId }) {
   const [guests, setGuests] = useState(1);
   const [comment, setComment] = useState("");
   const hasICal = icalSources.some((item) => item.url.trim() !== "");
+
+
+  useEffect(() => {
+  const checkMobile = () => {
+    setIsMobile(window.innerWidth < 640);
+  };
+
+  checkMobile();
+
+  window.addEventListener("resize", checkMobile);
+
+  return () => {
+    window.removeEventListener("resize", checkMobile);
+  };
+}, []);
 
   // =====================================
   // FETCH DATES
@@ -627,41 +643,46 @@ const getDateType = (date) => {
         )}
 
         {/* CALENDAR */}
-        <div
-          className="
-          w-full
-          overflow-x-auto
-          rounded-2xl
-          border border-gray-100
-          bg-white
-          shadow-inner
-          p-3
-        "
-        >
-          <DatePicker
-            inline
-            monthsShown={2}
-            selectsRange
-            startDate={startDate}
-            endDate={endDate}
-            onChange={handleDateSelect}
-            minDate={new Date()}
-            dayClassName={getDateType}
-            showOtherMonths={false}
-            showPopperArrow={false}
-            filterDate={(date) => {
-              const today = new Date();
+       <div
+  className="
+    w-full
+    overflow-x-auto
+    rounded-2xl
+    border
+    border-gray-100
+    bg-white
+    shadow-inner
+    p-2
+    sm:p-3
+  "
+>
+  <DatePicker
+    inline
+    monthsShown={isMobile ? 1 : 2}
+    selectsRange
+    startDate={startDate}
+    endDate={endDate}
+    onChange={handleDateSelect}
+    minDate={new Date()}
+    dayClassName={getDateType}
+    showOtherMonths={false}
+    showPopperArrow={false}
+    filterDate={(date) => {
+      const today = new Date();
 
-              today.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
 
-              const current = new Date(date);
+      const current = new Date(date);
 
-              current.setHours(0, 0, 0, 0);
+      current.setHours(0, 0, 0, 0);
 
-              return current >= today && isSelectableDate(date);
-            }}
-          />
-        </div>
+      return (
+        current >= today &&
+        isSelectableDate(date)
+      );
+    }}
+  />
+</div>
 
         {/* LEGEND */}
         <div className="flex flex-wrap justify-center gap-5 mt-8">
@@ -753,8 +774,7 @@ const getDateType = (date) => {
   border: none !important;
   font-family: inherit;
   background: transparent !important;
-}.react-datepicker__month-container {
-  padding: 40px;
+ 
 } .react-datepicker__week 
  { display: flex; 
   justify-content: space-between; 

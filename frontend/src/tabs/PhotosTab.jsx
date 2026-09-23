@@ -7,6 +7,10 @@ import { useModal } from "../context/ModalContext";
 import {
   DndContext,
   closestCenter,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
 } from "@dnd-kit/core";
 
 import {
@@ -42,7 +46,7 @@ function SortablePhoto({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    zIndex: isDragging ? 50 : "auto",
+    zIndex: isDragging ? 100 : "auto",
   };
 
   return (
@@ -62,22 +66,33 @@ function SortablePhoto({
 
         ${
           isDragging
-            ? "border-blue-500 shadow-2xl scale-[1.02]"
-            : "border-gray-200 shadow-sm hover:shadow-lg"
+            ? `
+              border-blue-500
+              shadow-2xl
+              scale-[1.03]
+              rotate-[1deg]
+            `
+            : `
+              border-gray-200
+              shadow-sm
+              hover:shadow-lg
+            `
         }
       `}
     >
       {/* =====================================================
-          DRAG AREA
+          IMAGE / DRAG AREA
       ===================================================== */}
 
       <div
         {...listeners}
         className="
           relative
+          overflow-hidden
           cursor-grab
           active:cursor-grabbing
-          overflow-hidden
+          touch-none
+          select-none
         "
       >
         <img
@@ -85,9 +100,12 @@ function SortablePhoto({
           alt="listing"
           className="
             w-full
-            h-48
+            h-40
+            sm:h-48
+            md:h-52
             object-cover
             select-none
+            pointer-events-none
             transition-transform
             duration-500
             group-hover:scale-105
@@ -95,24 +113,29 @@ function SortablePhoto({
           draggable={false}
         />
 
-        {/* Dark Overlay */}
+        {/* =================================================
+            DARK OVERLAY
+        ================================================= */}
 
         <div
           className="
             absolute
             inset-0
             bg-gradient-to-t
-            from-black/50
+            from-black/60
             via-transparent
             to-transparent
             opacity-0
             group-hover:opacity-100
             transition-opacity
             duration-300
+            pointer-events-none
           "
         />
 
-        {/* Drag Indicator */}
+        {/* =================================================
+            DRAG HANDLE
+        ================================================= */}
 
         <div
           className="
@@ -122,20 +145,22 @@ function SortablePhoto({
             flex
             items-center
             justify-center
-            w-8
-            h-8
-            rounded-lg
-            bg-black/40
+            w-9
+            h-9
+            rounded-xl
+            bg-black/50
             backdrop-blur-sm
             text-white
-            opacity-0
-            group-hover:opacity-100
+            opacity-100
+            md:opacity-0
+            md:group-hover:opacity-100
             transition-all
             duration-200
+            pointer-events-none
           "
         >
           <svg
-            className="w-4 h-4"
+            className="w-5 h-5"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -144,15 +169,53 @@ function SortablePhoto({
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M8 9h8M8 15h8M9 5h6M9 19h6"
+              d="M8 5h8M8 12h8M8 19h8"
+            />
+
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 5h.01M5 12h.01M5 19h.01"
             />
           </svg>
         </div>
 
-        {/* Delete Button */}
+        {/* =================================================
+            MOBILE DRAG TEXT
+        ================================================= */}
+
+        <div
+          className="
+            absolute
+            bottom-3
+            left-3
+            px-2.5
+            py-1
+            rounded-lg
+            bg-black/45
+            backdrop-blur-sm
+            text-white
+            text-[10px]
+            font-medium
+            md:hidden
+            pointer-events-none
+          "
+        >
+          Hold & drag
+        </div>
+
+        {/* =================================================
+            DELETE BUTTON
+        ================================================= */}
 
         <button
           type="button"
+          onPointerDown={(e) => {
+            e.stopPropagation();
+          }}
+          onTouchStart={(e) => {
+            e.stopPropagation();
+          }}
           onClick={(e) => {
             e.stopPropagation();
             deletePhoto(photo);
@@ -171,13 +234,16 @@ function SortablePhoto({
             bg-red-500/90
             backdrop-blur-sm
             text-white
-            opacity-0
-            group-hover:opacity-100
+            opacity-100
+            md:opacity-0
+            md:group-hover:opacity-100
             hover:bg-red-600
             hover:scale-105
+            active:scale-95
             transition-all
             duration-200
             cursor-pointer
+            touch-auto
           "
         >
           <svg
@@ -200,12 +266,24 @@ function SortablePhoto({
           PHOTO FOOTER
       ===================================================== */}
 
-      <div className="flex items-center justify-between px-4 py-3 bg-white">
-        <span className="text-xs font-medium text-gray-500">
+      <div
+        className="
+          flex
+          items-center
+          justify-between
+          gap-2
+          px-3
+          sm:px-4
+          py-2.5
+          sm:py-3
+          bg-white
+        "
+      >
+        <span className="text-[11px] sm:text-xs font-medium text-gray-500">
           Listing Photo
         </span>
 
-        <span className="text-[11px] text-gray-400">
+        <span className="text-[10px] sm:text-[11px] text-gray-400">
           Drag to reorder
         </span>
       </div>
@@ -226,6 +304,26 @@ export default function PhotosTab({
   const [uploading, setUploading] = useState(false);
 
   const { showModal } = useModal();
+
+
+  /* =========================================================
+     DND SENSORS
+  ========================================================= */
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 180,
+        tolerance: 8,
+      },
+    })
+  );
 
 
   /* =========================================================
@@ -306,7 +404,9 @@ export default function PhotosTab({
 
       setPhotos(res.data.photos || []);
 
-      showModal("Photos uploaded successfully");
+      showModal(
+        "Photos uploaded successfully"
+      );
     } catch (err) {
       console.log(err);
 
@@ -384,6 +484,7 @@ export default function PhotosTab({
         })
       );
 
+    // Instant UI update
     setPhotos(reordered);
 
     try {
@@ -394,10 +495,17 @@ export default function PhotosTab({
         }
       );
     } catch (err) {
-      console.log(err);
+      console.log(
+        "REORDER ERROR:",
+        err
+      );
 
-      // Reload original server order
+      // Restore server order
       fetchPhotos();
+
+      showModal(
+        "Could not save photo order"
+      );
     }
   };
 
@@ -407,8 +515,14 @@ export default function PhotosTab({
   ========================================================= */
 
   return (
-    <div className="space-y-6">
-
+    <div
+      className="
+        w-full
+        space-y-5
+        sm:space-y-6
+        pb-4
+      "
+    >
 
       {/* =====================================================
           PAGE HEADER
@@ -417,17 +531,34 @@ export default function PhotosTab({
       <div
         className="
           flex
-          items-center
-          justify-between
-          gap-4
+          flex-col
+          sm:flex-row
+          sm:items-center
+          sm:justify-between
+          gap-3
         "
       >
-        <div>
-          <h2 className="text-xl font-bold text-gray-800">
+        <div className="min-w-0">
+          <h2
+            className="
+              text-lg
+              sm:text-xl
+              font-bold
+              text-gray-800
+            "
+          >
             Property Photos
           </h2>
 
-          <p className="text-sm text-gray-500 mt-1">
+          <p
+            className="
+              text-xs
+              sm:text-sm
+              text-gray-500
+              mt-1
+              leading-5
+            "
+          >
             Upload and arrange your property photos.
           </p>
         </div>
@@ -441,8 +572,10 @@ export default function PhotosTab({
             border
             border-blue-100
             text-blue-700
-            text-sm
+            text-xs
+            sm:text-sm
             font-medium
+            w-fit
           "
         >
           {photos.length}{" "}
@@ -451,6 +584,39 @@ export default function PhotosTab({
             : "Photos"}
         </div>
       </div>
+
+
+      {/* =====================================================
+          MOBILE DRAG INSTRUCTION
+      ===================================================== */}
+
+      {photos.length > 1 && (
+        <div
+          className="
+            md:hidden
+            flex
+            items-start
+            gap-2
+            px-3
+            py-2.5
+            rounded-xl
+            bg-blue-50
+            border
+            border-blue-100
+            text-blue-700
+          "
+        >
+          <span className="text-sm">
+            ☝️
+          </span>
+
+          <p className="text-xs leading-5">
+            Press and hold a photo, then drag it
+            up, down, left or right to change its
+            position.
+          </p>
+        </div>
+      )}
 
 
       {/* =====================================================
@@ -463,7 +629,8 @@ export default function PhotosTab({
           border
           border-gray-200
           rounded-2xl
-          p-5
+          p-3
+          sm:p-5
           shadow-sm
         "
       >
@@ -475,8 +642,10 @@ export default function PhotosTab({
             flex-col
             items-center
             justify-center
-            min-h-[190px]
-            rounded-2xl
+            min-h-[170px]
+            sm:min-h-[190px]
+            rounded-xl
+            sm:rounded-2xl
             border-2
             border-dashed
             border-gray-300
@@ -496,19 +665,22 @@ export default function PhotosTab({
               flex
               items-center
               justify-center
-              w-14
-              h-14
+              w-12
+              h-12
+              sm:w-14
+              sm:h-14
               rounded-2xl
               bg-blue-100
               text-blue-600
-              mb-4
+              mb-3
+              sm:mb-4
               group-hover:scale-110
               transition-transform
               duration-200
             "
           >
             <svg
-              className="w-7 h-7"
+              className="w-6 h-6 sm:w-7 sm:h-7"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -519,6 +691,7 @@ export default function PhotosTab({
                 strokeLinejoin="round"
                 d="M12 16V4m0 0L7 9m5-5l5 5"
               />
+
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -527,11 +700,11 @@ export default function PhotosTab({
             </svg>
           </div>
 
-          <p className="text-sm font-semibold text-gray-700">
+          <p className="text-xs sm:text-sm font-semibold text-gray-700">
             Click to upload photos
           </p>
 
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-[11px] sm:text-xs text-gray-400 mt-1 text-center px-3">
             JPG, PNG, WEBP or other image formats
           </p>
 
@@ -556,7 +729,8 @@ export default function PhotosTab({
               items-center
               gap-3
               mt-4
-              px-4
+              px-3
+              sm:px-4
               py-3
               rounded-xl
               bg-blue-50
@@ -568,6 +742,7 @@ export default function PhotosTab({
               className="
                 w-4
                 h-4
+                shrink-0
                 border-2
                 border-blue-200
                 border-t-blue-600
@@ -576,7 +751,7 @@ export default function PhotosTab({
               "
             />
 
-            <span className="text-sm font-medium text-blue-700">
+            <span className="text-xs sm:text-sm font-medium text-blue-700">
               Uploading photos...
             </span>
           </div>
@@ -590,6 +765,7 @@ export default function PhotosTab({
 
       {photos.length > 0 ? (
         <DndContext
+          sensors={sensors}
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
@@ -602,11 +778,12 @@ export default function PhotosTab({
             <div
               className="
                 grid
-                grid-cols-1
+                grid-cols-2
                 sm:grid-cols-2
                 lg:grid-cols-3
                 xl:grid-cols-4
-                gap-5
+                gap-3
+                sm:gap-5
               "
             >
               {photos.map(
@@ -629,6 +806,7 @@ export default function PhotosTab({
           </SortableContext>
         </DndContext>
       ) : (
+
         /* ===================================================
            EMPTY STATE
         =================================================== */
@@ -639,7 +817,9 @@ export default function PhotosTab({
             flex-col
             items-center
             justify-center
-            py-16
+            py-12
+            sm:py-16
+            px-4
             bg-white
             border
             border-gray-200
@@ -651,8 +831,10 @@ export default function PhotosTab({
               flex
               items-center
               justify-center
-              w-16
-              h-16
+              w-14
+              h-14
+              sm:w-16
+              sm:h-16
               rounded-2xl
               bg-gray-100
               text-gray-400
@@ -660,7 +842,7 @@ export default function PhotosTab({
             "
           >
             <svg
-              className="w-8 h-8"
+              className="w-7 h-7 sm:w-8 sm:h-8"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -673,11 +855,13 @@ export default function PhotosTab({
                 height="18"
                 rx="2"
               />
+
               <circle
                 cx="8.5"
                 cy="8.5"
                 r="1.5"
               />
+
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -686,11 +870,11 @@ export default function PhotosTab({
             </svg>
           </div>
 
-          <h3 className="font-semibold text-gray-700">
+          <h3 className="text-sm sm:text-base font-semibold text-gray-700 text-center">
             No photos uploaded yet
           </h3>
 
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-xs sm:text-sm text-gray-400 mt-1 text-center">
             Upload property photos to get started.
           </p>
         </div>
@@ -715,12 +899,15 @@ export default function PhotosTab({
           className="
             inline-flex
             items-center
+            justify-center
             gap-2
             bg-blue-600
             hover:bg-blue-700
             active:scale-[0.98]
             text-white
             font-medium
+            w-full
+            sm:w-auto
             px-7
             py-2.5
             rounded-xl
@@ -732,6 +919,7 @@ export default function PhotosTab({
           "
         >
           Next
+
           <span className="text-lg leading-none">
             →
           </span>

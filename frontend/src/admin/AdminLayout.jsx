@@ -3,14 +3,24 @@ import Sidebar from "./components/Sidebar";
 
 function AdminLayout({ children }) {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen w-full bg-gray-100">
 
-      {/* Fixed Sidebar */}
+      {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
-      <main className="ml-64 min-h-screen">
-        <div className="p-6">
+      <main
+        className="
+          w-full
+          min-h-screen
+          ml-0
+          md:ml-64
+          pb-20
+          md:pb-0
+          overflow-x-hidden
+        "
+      >
+        <div className="w-full p-3 sm:p-4 md:p-6">
           {children}
         </div>
       </main>

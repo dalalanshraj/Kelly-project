@@ -19,66 +19,71 @@ export default function DescriptionTab({
   // SET INITIAL DESCRIPTION
   // =========================================
 
-  useEffect(() => {
-    if (
-      editorReady &&
-      editorRef.current &&
-      initialData
-    ) {
-      editorRef.current.setContent(initialData);
-    }
-  }, [editorReady, initialData]);
+ useEffect(() => {
+  if (!editorReady || !editorRef.current) return;
+
+  const currentContent = editorRef.current.getContent();
+
+  // Only set initial content if editor is currently empty
+  if (!currentContent.trim() && initialData) {
+    editorRef.current.setContent(initialData);
+  }
+}, [editorReady]);
 
   // =========================================
   // SAVE DESCRIPTION
   // =========================================
 
-  const saveDescription = async () => {
-    if (!listingId) {
-      showModal("Listing not created yet");
+ const saveDescription = async () => {
+  if (!listingId) {
+    showModal("Listing not created yet");
+    return;
+  }
+
+  if (!editorRef.current) {
+    showModal("Editor is not ready");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const content = editorRef.current.getContent();
+
+    if (!content || content.trim() === "") {
+      showModal("Description cannot be empty");
       return;
     }
 
-    if (!editorRef.current) {
-      showModal("Editor is not ready");
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      const content =
-        editorRef.current.getContent();
-
-      if (!content || content.trim() === "") {
-        showModal("Description cannot be empty");
-        return;
+    const response = await api.put(
+      `/listings/${listingId}/description`,
+      {
+        description: content,
       }
+    );
 
-      await api.put(
-        `/listings/${listingId}/description`,
-        {
-          description: content,
-        }
-      );
+    console.log("DESCRIPTION SAVED:", response.data);
 
-      setTimeout(() => {
-        goNextTab();
-      }, 500);
+    showModal("Description saved successfully");
 
-    } catch (err) {
-      console.error(
-        "Description save error:",
-        err
-      );
+    setTimeout(() => {
+      goNextTab();
+    }, 500);
 
-      showModal(
-        "Failed to save description"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (err) {
+    console.error(
+      "Description save error:",
+      err.response?.data || err
+    );
+
+    showModal(
+      err.response?.data?.message ||
+      "Failed to save description"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="space-y-5">
@@ -88,15 +93,12 @@ export default function DescriptionTab({
       ====================================== */}
 
       <Editor
-        tinymceScriptSrc="/tinymce/tinymce.min.js"
-
-        onInit={(evt, editor) => {
-          editorRef.current = editor;
-          setEditorReady(true);
-        }}
-
-        initialValue={initialData || ""}
-
+  tinymceScriptSrc="/tinymce/tinymce.min.js"
+  onInit={(evt, editor) => {
+    editorRef.current = editor;
+    setEditorReady(true);
+  }}
+  initialValue={initialData || ""}
         init={{
           height: 350,
 
