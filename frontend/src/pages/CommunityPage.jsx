@@ -26,18 +26,37 @@ export default function CommunityPage() {
     setFilteredListings(listings);
   }, [listings]);
 
-  const fetchListings = async () => {
-    try {
-      const res = await api.get(`/listings/community/${slug}`);
-      res.data.forEach((listing) => {
-        
-      });
+ const fetchListings = async () => {
+  try {
+     
 
-      setListings(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    const res = await api.get(`/listings/community/${slug}`);
+
+ 
+
+    // Handle different backend response formats
+    const data = Array.isArray(res.data)
+      ? res.data
+      : Array.isArray(res.data?.listings)
+      ? res.data.listings
+      : Array.isArray(res.data?.data)
+      ? res.data.data
+      : [];
+
+    
+
+    setListings(data);
+    setFilteredListings(data);
+
+  } catch (err) {
+    console.error("COMMUNITY LISTINGS ERROR:", err);
+    console.error("STATUS:", err.response?.status);
+    console.error("ERROR DATA:", err.response?.data);
+
+    setListings([]);
+    setFilteredListings([]);
+  }
+};
   const formatDate = (date) => {
     const d = new Date(date);
 

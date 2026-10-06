@@ -26,7 +26,7 @@ export default function Contact() {
 
       setEmails([...new Set(recipients)]);
 
-      console.log("Recipients:", recipients);
+    
     } catch (err) {
       console.log(err);
     }

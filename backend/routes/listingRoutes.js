@@ -141,7 +141,10 @@ router.put(
   isAdmin,
   toggleListingStatus
 );
- 
+ router.get(
+  "/community/:community",
+  getCommunityListings
+);
 
 
 export default router;

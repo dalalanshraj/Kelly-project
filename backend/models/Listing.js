@@ -14,6 +14,7 @@ const listingSchema = new mongoose.Schema(
           title: String,
 
           category: String,
+           community: String,
 
           
           calendarSource: {
@@ -30,10 +31,7 @@ const listingSchema = new mongoose.Schema(
           phone:String,
           altEmail: String,
           altPhone: String,
-           iVacationPropertyId: {
-        type: String,
-        default: "",
-      },
+           
         },
         { _id: false },
       ),
