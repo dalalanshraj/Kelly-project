@@ -13,7 +13,7 @@ import api from "../../api/axios";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-
+  const [unreadCount, setUnreadCount] = useState(0);
   const [user, setUser] = useState(null);
 
   const token = localStorage.getItem("token");
@@ -23,7 +23,27 @@ const Sidebar = () => {
 
   useEffect(() => {
     fetchProfile();
+    fetchUnreadCount();
+
+    // Refresh count every 15 seconds
+    const interval = setInterval(fetchUnreadCount, 15000);
+
+    return () => clearInterval(interval);
   }, []);
+
+  const fetchUnreadCount = async () => {
+    try {
+      const res = await api.get("/inquiries/unread-count", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setUnreadCount(res.data.count || 0);
+    } catch (err) {
+      console.error("Unread inquiry count error:", err);
+    }
+  };
 
   const fetchProfile = async () => {
     try {
@@ -47,18 +67,16 @@ const Sidebar = () => {
 
   // Desktop sidebar links
   const desktopLinkClass = ({ isActive }) =>
-    `flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-      isActive
-        ? "bg-[#EBE8FF] text-black font-medium"
-        : "text-black hover:bg-gray-200"
+    `flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 ${isActive
+      ? "bg-[#EBE8FF] text-black font-medium"
+      : "text-black hover:bg-gray-200"
     }`;
 
   // Mobile bottom navigation links
   const mobileLinkClass = ({ isActive }) =>
-    `flex flex-col items-center justify-center gap-1 min-w-[64px] flex-1 h-full px-1 transition-all duration-200 ${
-      isActive
-        ? "text-indigo-600"
-        : "text-gray-600 hover:text-indigo-600"
+    `flex flex-col items-center justify-center gap-1 min-w-[64px] flex-1 h-full px-1 transition-all duration-200 ${isActive
+      ? "text-indigo-600"
+      : "text-gray-600 hover:text-indigo-600"
     }`;
 
   return (
@@ -128,6 +146,22 @@ const Sidebar = () => {
           </NavLink>
 
           <NavLink
+            to="/admin/inquiries"
+            end
+            className={desktopLinkClass}
+          >
+            <MdListAlt size={20} />
+
+            <span className="flex-1">All Inquiries</span>
+
+            {unreadCount > 0 && (
+              <span className="min-w-6 h-6 px-1.5 flex items-center justify-center rounded-full bg-orange-500 text-white text-xs font-bold">
+                {unreadCount > 99 ? "99+" : unreadCount}
+              </span>
+            )}
+          </NavLink>
+
+          <NavLink
             to="/admin/listings"
             end
             className={desktopLinkClass}
@@ -136,13 +170,7 @@ const Sidebar = () => {
             <span>Listings</span>
           </NavLink>
 
-          <NavLink
-            to="/admin/users"
-            className={desktopLinkClass}
-          >
-            <MdPeople size={20} />
-            <span>My Profile</span>
-          </NavLink>
+
 
           {user?.role === "superadmin" && (
             <NavLink
@@ -160,6 +188,13 @@ const Sidebar = () => {
           >
             <MdAddBox size={20} />
             <span>Gallery</span>
+          </NavLink>
+          <NavLink
+            to="/admin/users"
+            className={desktopLinkClass}
+          >
+            <MdPeople size={20} />
+            <span>My Profile</span>
           </NavLink>
         </nav>
 
@@ -221,6 +256,26 @@ const Sidebar = () => {
               Dashboard
             </span>
           </NavLink>
+
+          <NavLink
+  to="/admin/inquiries"
+  end
+  className={mobileLinkClass}
+>
+  <span className="relative">
+    <MdListAlt size={22} />
+
+    {unreadCount > 0 && (
+      <span className="absolute -top-2 -right-3 min-w-4 h-4 px-1 flex items-center justify-center rounded-full bg-orange-500 text-white text-[9px] font-bold">
+        {unreadCount > 99 ? "99+" : unreadCount}
+      </span>
+    )}
+  </span>
+
+  <span className="text-[10px] sm:text-[11px] font-medium whitespace-nowrap">
+    Inquiries
+  </span>
+</NavLink>
 
           {/* Listings */}
           <NavLink

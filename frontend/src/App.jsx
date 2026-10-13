@@ -37,6 +37,7 @@ import PropertyManagement from "./pages/PropertyManagement";
 import AboutSlider from "./pages/About";
 import Contact from "./pages/Contact";
 import ActivitiesPage from "./pages/Activities";
+import Inquiry from "./admin/pages/Inquiry";
 
 function App() {
 
@@ -145,7 +146,18 @@ function App() {
             </AdminRoute>
           }
         />
+          <Route
+          path="/admin/inquiries"
+          element={
+            <AdminRoute>
+              <AdminLayout>
+                <Inquiry />
+              </AdminLayout>
+            </AdminRoute>
+          }
+        />
       </Routes>
+      
 
       {/* FRONTEND ONLY */}
       {!isAdminRoute && <Footer />}

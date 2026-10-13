@@ -77,10 +77,7 @@ const tabs = [
     name: "Deals",
     icon: <MdOutlineLocalOffer />,
   },
-  {
-    name: "Inquiry",
-    icon: <IoMailOpenOutline />,
-  },
+  
 ];
 
 /* ============================================================
@@ -897,26 +894,7 @@ export default function AddListing() {
             )}
 
 
-            {/* ==================================================
-                INQUIRY
-            ================================================== */}
-
-            {activeTab === "Inquiry" && (
-              <div className="w-full min-w-0">
-
-                <Inquiry
-                  listingId={listingId}
-                  setListingId={setListingId}
-                  initialData={
-                    listingData?.Inquiry
-                  }
-                  goNextTab={goNextTab}
-                  setActiveTab={setActiveTab}
-                />
-
-              </div>
-            )}
-
+           
           </div>
 
         </div>

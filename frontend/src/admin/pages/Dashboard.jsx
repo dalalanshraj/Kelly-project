@@ -344,7 +344,7 @@ const Dashboard = () => {
             gradient="from-[#90caf9] to-[#047edf]"
             description="Total inquiries"
             onClick={() =>
-              navigate("/admin/listings")
+              navigate("/admin/inquiries")
             }
           />
         </div>
