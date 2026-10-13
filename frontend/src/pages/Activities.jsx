@@ -3,13 +3,7 @@ import heroImage from "../assets/Shores-img/img4.jpeg"
 
 // import ActivitiesHeroImg from "../assets/activities/hero.jpg";
 
-import GolfImg from "../assets/activities/golf.jpg";
-import BoatTourImg from "../assets/activities/boat-tour.jpg";
-import ShoppingImg from "../assets/activities/shopping.jpg";
-import HookdImg from "../assets/activities/hookd.jpg";
-import LizasImg from "../assets/activities/lizas-kitchen.jpg";
-import SkydiveImg from "../assets/activities/skydive.jpg";
-import TheatreImg from "../assets/activities/grand-theatre.jpg";
+ 
 
 const ActivitiesPage = () => {
   const [selectedActivity, setSelectedActivity] = useState(null);
@@ -18,7 +12,7 @@ const ActivitiesPage = () => {
     {
       id: 1,
       title: "Rick Seltzer Park",
-      imageSrc: GolfImg,
+      imageSrc: "/activities/golf.webp",
       description:
         " Rick Seltzer Park provides some precious free and public access to the Panama City Beach oceanfront. This is a great lifeguarded swimming beach backed by handsome dunes and if you’re timing’s right surprisingly uncrowded. It offers the perfect sunset vantage, and it’s close to a number of restaurants that make combining sand and sun worship with some PCB dining out a (sea) breeze.",
     },
@@ -26,7 +20,7 @@ const ActivitiesPage = () => {
     {
       id: 2,
       title: "St. Andrews State Park",
-      imageSrc: BoatTourImg,
+      imageSrc: "/public/activities/boat-tour.webp",
       description:
         "The park has such amenities as two-and-a-half miles of beaches, bicycling, birding, boat tours, boating, canoeing, two fishing piers, hiking, kayaking, picnicking areas, scuba diving, snorkeling, swimming, wildlife viewing and full camping facilities. During the summer, camping reservations are recommended for best availability. It also has a visitor center, an interpretive exhibit and concessions.",
     },
@@ -34,7 +28,7 @@ const ActivitiesPage = () => {
     {
       id: 3,
       title: " Camp Helen State Park",
-      imageSrc: ShoppingImg,
+      imageSrc: "/public/activities/shopping.webp",
       description:
         "Camp Helen State Park is a Florida State Park and historic site located west of Panama City Beach, in northwestern Florida. The park is south of U.S. 98, and bounded by the Gulf of Mexico and Lake Powell. The park was added to the National Register of Historic Places on May 24, 2012",
     },
@@ -42,7 +36,7 @@ const ActivitiesPage = () => {
     {
       id: 4,
       title: "Frank Brown Park",
-      imageSrc: HookdImg,
+      imageSrc:  "/public/activities/hookd.webp",
       description:
         "Frank Brown Park is a 200-acre outdoor recreation facility in Panama City Beach, Florida. The park hosts various sporting events throughout the year and has facilities available for public use. The largest park in Panama City Beach is Frank Brown Park, just over 100 acres and located on Panama City Beach Parkway between State Road 79 and Pier Park",
     },
@@ -50,7 +44,7 @@ const ActivitiesPage = () => {
     {
       id: 5,
       title: "Pier Park",
-      imageSrc: LizasImg,
+      imageSrc: "/public/activities/lizas-kitchen.webp",
       description:
         " Pier Park is Panama City Beach’s premier shopping and entertainment destination. Serving the Panama City Beach and 30A community, this outdoor complex boasts 124 stores, ranging from clothing for the whole family to home goods, shoes, and jewelry. Pier Park also offers many exciting dining options. No matter what you’re in the mood for, Pier Park has the variety that puts the all in the mall. Choose your adventures at a variety of entertainment venues from the Grand IMAX movie theater, to laser tag and live music, Pier Park is your destination for fun, food, and fantastic shopping all near one of the country’s most beautiful beaches.",
     },
@@ -58,7 +52,7 @@ const ActivitiesPage = () => {
     {
       id: 6,
       title: "Panama City Beach",
-      imageSrc: SkydiveImg,
+      imageSrc: "/activities/skydive.webp",
       description: " This 27-mile long beach offers a wide variety of activities to enjoy such as swimming, snorkeling, dolphin-spotting parasailing and jet skiing.",
     },
 
@@ -176,7 +170,7 @@ Know More
       <div className="order-1 lg:order-2 flex justify-center">
         <div className="overflow-hidden rounded-2xl">
           <img
-            src={TheatreImg}
+            src="/activities/grand-theatre.webp"
             alt="PCB"
             className="
               w-full

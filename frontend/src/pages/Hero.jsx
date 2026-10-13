@@ -7,7 +7,7 @@ import FeatureSection from "../components/FeatureSection";
 import CategorySection from "../components/CategorySection";
 import TestimonialCarousel from "../components/Testimonial";
 import FeaturedProperties from "../components/FeaturedProperties";
-import HeroVideo from "../assets/heroVideo.mp4"
+ 
 import CommunityImg from "../assets/Seychelles-img/img2.jpg"
 import LuxuryCoastalImg from "../assets/Laketown-Img/img1.jpeg"
 
@@ -64,7 +64,7 @@ const [selectedAmenity, setSelectedAmenity] =
       {/* Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
-        src={HeroVideo}
+        src="/heroVideo.mp4"
         autoPlay
         muted
         loop

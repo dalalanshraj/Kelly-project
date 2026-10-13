@@ -1,12 +1,8 @@
 import React from "react";
 import { useState , useEffect } from "react";
 import CategoryCard from "./CategoryCard";
-import pool from "../assets/amenitiesImg/CommunityPool.jpg"
-import Gulf from "../assets/amenitiesImg/GulfOceanFront.jpeg"
-import Lake from "../assets/amenitiesImg/LakeView.jpg"
-import Deck from "../assets/amenitiesImg/Deck.jpg"
-import Restaurants from "../assets/amenitiesImg/Restaurants.jpg"
-import Heatedspa from "../assets/amenitiesImg/Heatedspa.jpg"
+
+ 
 const CategorySection = () => {
   const [selectedAmenity, setSelectedAmenity] =
   useState(null);
@@ -14,7 +10,7 @@ const CategorySection = () => {
   {
     id: 1,
     title: "Community Pool",
-    imageSrc: pool,
+    imageSrc: "/amenitiesImg/CommunityPool.webp",
     communities: [
       "Seychelles Properties",
       "Laketown Wharf Properties",
@@ -26,7 +22,7 @@ const CategorySection = () => {
   {
     id: 2,
     title: "Gulf/Ocean Front",
-    imageSrc: Gulf,
+    imageSrc:"/amenitiesImg/GulfOceanFront.webp",
     communities: [
       "Seychelles Properties",
       "Shores Of Panama Properties",
@@ -38,7 +34,7 @@ const CategorySection = () => {
   {
     id: 3,
     title: "Lake View",
-    imageSrc: Lake,
+    imageSrc:"/amenitiesImg/LakeView.webp",
     communities: [
       "Laketown Wharf Properties",
     ],
@@ -49,7 +45,7 @@ const CategorySection = () => {
   {
     id: 4,
     title: "Deck",
-    imageSrc: Deck,
+    imageSrc: "/amenitiesImg/Deck.webp",
     communities: [
       "Seychelles Properties",
       "Shores Of Panama Properties",
@@ -61,7 +57,7 @@ const CategorySection = () => {
   {
     id: 5,
     title: "Restaurants",
-    imageSrc: Restaurants,
+    imageSrc: "/amenitiesImg/Restaurants.webp",
     communities: [
       "Laketown Wharf Properties",
       "Shores Of Panama Properties",
@@ -73,7 +69,7 @@ const CategorySection = () => {
   {
     id: 6,
     title: "Beachfront Hot Tub / Heated Spa",
-    imageSrc: Heatedspa,
+    imageSrc:  "/amenitiesImg/Heatedspa.webp",
     communities: [
       "Seychelles Properties",
       "Shores Of Panama Properties",

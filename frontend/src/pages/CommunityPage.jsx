@@ -17,6 +17,7 @@ export default function CommunityPage() {
   const [filteredListings, setFilteredListings] = useState([]);
   const [listings, setListings] = useState([]);
   const [sortBy, setSortBy] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchListings();
@@ -26,15 +27,12 @@ export default function CommunityPage() {
     setFilteredListings(listings);
   }, [listings]);
 
- const fetchListings = async () => {
-  try {
-     
+const fetchListings = async () => {
+  setLoading(true);
 
+  try {
     const res = await api.get(`/listings/community/${slug}`);
 
- 
-
-    // Handle different backend response formats
     const data = Array.isArray(res.data)
       ? res.data
       : Array.isArray(res.data?.listings)
@@ -43,11 +41,8 @@ export default function CommunityPage() {
       ? res.data.data
       : [];
 
-    
-
     setListings(data);
     setFilteredListings(data);
-
   } catch (err) {
     console.error("COMMUNITY LISTINGS ERROR:", err);
     console.error("STATUS:", err.response?.status);
@@ -55,6 +50,8 @@ export default function CommunityPage() {
 
     setListings([]);
     setFilteredListings([]);
+  } finally {
+    setLoading(false);
   }
 };
   const formatDate = (date) => {
@@ -487,13 +484,58 @@ export default function CommunityPage() {
   </div>
 </section>
       {/* Listings */}
-      <section className="max-w-7xl mx-auto py-12 px-4">
-        <div className="grid lg:grid-cols-2 gap-8">
-          {filteredListings.map((listing) => (
-            <ListingCard key={listing._id} listing={listing} />
-          ))}
+     {/* Listings */}
+<section className="max-w-7xl mx-auto py-12 px-4">
+  {loading ? (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-pulse">
+      {[1, 2, 3, 4].map((item) => (
+        <div
+          key={item}
+          className="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm"
+        >
+          {/* Property Image */}
+          <div className="h-64 sm:h-72 w-full bg-gray-200" />
+
+          {/* Property Details */}
+          <div className="p-5 sm:p-6 space-y-4">
+            <div className="h-6 bg-gray-200 rounded-md w-3/4" />
+
+            <div className="h-4 bg-gray-200 rounded-md w-1/2" />
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              <div className="h-5 w-20 bg-gray-200 rounded-md" />
+              <div className="h-5 w-20 bg-gray-200 rounded-md" />
+              <div className="h-5 w-24 bg-gray-200 rounded-md" />
+            </div>
+
+            <div className="h-4 bg-gray-200 rounded-md w-full" />
+            <div className="h-4 bg-gray-200 rounded-md w-4/5" />
+
+            <div className="flex items-center justify-between pt-3">
+              <div className="h-7 w-28 bg-gray-200 rounded-md" />
+              <div className="h-11 w-32 bg-gray-200 rounded-xl" />
+            </div>
+          </div>
         </div>
-      </section>
+      ))}
+    </div>
+  ) : filteredListings.length > 0 ? (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {filteredListings.map((listing) => (
+        <ListingCard key={listing._id} listing={listing} />
+      ))}
+    </div>
+  ) : (
+    <div className="text-center py-16">
+      <h3 className="text-xl font-semibold text-gray-800">
+        No Properties Found
+      </h3>
+      <p className="text-gray-500 mt-2">
+        Try changing your dates or search filters.
+      </p>
+    </div>
+  )}
+</section>
     </div>
   );
 }
