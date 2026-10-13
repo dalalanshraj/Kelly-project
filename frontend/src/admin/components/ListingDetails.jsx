@@ -581,31 +581,7 @@ export default function ListingCard({
 
               </div>
 
-
-              {/* INQUIRY */}
-
-              <div className="flex items-center gap-1">
-
-                <QuickLink
-                  to={`/admin/listings/${listing._id}?tab=Inquiry`}
-                  label="Inquiry"
-                />
-
-                {listing.inquiryCount > 0 && (
-                  <span className="
-                    px-2
-                    py-1
-                    rounded-md
-                    bg-orange-50
-                    text-orange-600
-                    text-[10px]
-                    font-bold
-                  ">
-                    {listing.inquiryCount} New
-                  </span>
-                )}
-
-              </div>
+ 
 
             </div>
 
