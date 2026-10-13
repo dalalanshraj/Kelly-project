@@ -32,10 +32,11 @@ import ResultsPage from "./pages/Results";
 import PropertyDetails from "./pages/PropertyDetails";
 import CommunityPage from "./pages/CommunityPage";
 import SpecialsPage from "./pages/Specials";
-import ActivitiesSection from "./pages/Activities";
+
 import PropertyManagement from "./pages/PropertyManagement";
 import AboutSlider from "./pages/About";
 import Contact from "./pages/Contact";
+import ActivitiesPage from "./pages/Activities";
 
 function App() {
 
@@ -46,8 +47,8 @@ function App() {
 
   return (
     <>
-   <ScrollToTop />
-       {!isAdminRoute && <Navbar />}
+      <ScrollToTop />
+      {!isAdminRoute && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Hero />} />
@@ -57,12 +58,13 @@ function App() {
         />
         <Route path="/Chateau-St-Tropez/" element={<ChateauStTropez />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
-       {/* ADMIN LOGIN */}
+        {/* ADMIN LOGIN */}
         <Route path="/admin/login" element={<Login />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/community/:slug" element={<CommunityPage />} />
         <Route path="/Specials" element={<SpecialsPage />} />
-        <Route path="/activities" element={<ActivitiesSection />} />
+
+        <Route path="/activities" element={<ActivitiesPage />} />
         <Route path="/property-management" element={<PropertyManagement />} />
         <Route path="/about" element={<AboutSlider />} />
         <Route path="/contact" element={<Contact />} />
@@ -133,7 +135,7 @@ function App() {
             </AdminRoute>
           }
         />
-         <Route
+        <Route
           path="/admin/gallery"
           element={
             <AdminRoute>
