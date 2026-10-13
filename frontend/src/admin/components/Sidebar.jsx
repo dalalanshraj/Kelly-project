@@ -258,24 +258,24 @@ const Sidebar = () => {
           </NavLink>
 
           <NavLink
-  to="/admin/inquiries"
-  end
-  className={mobileLinkClass}
->
-  <span className="relative">
-    <MdListAlt size={22} />
+            to="/admin/inquiries"
+            end
+            className={mobileLinkClass}
+          >
+            <span className="relative">
+              <MdListAlt size={22} />
 
-    {unreadCount > 0 && (
-      <span className="absolute -top-2 -right-3 min-w-4 h-4 px-1 flex items-center justify-center rounded-full bg-orange-500 text-white text-[9px] font-bold">
-        {unreadCount > 99 ? "99+" : unreadCount}
-      </span>
-    )}
-  </span>
+              {unreadCount > 0 && (
+                <span className="absolute -top-2 -right-3 min-w-4 h-4 px-1 flex items-center justify-center rounded-full bg-orange-500 text-white text-[9px] font-bold">
+                  {unreadCount > 99 ? "99+" : unreadCount}
+                </span>
+              )}
+            </span>
 
-  <span className="text-[10px] sm:text-[11px] font-medium whitespace-nowrap">
-    Inquiries
-  </span>
-</NavLink>
+            <span className="text-[10px] sm:text-[11px] font-medium whitespace-nowrap">
+              Inquiries
+            </span>
+          </NavLink>
 
           {/* Listings */}
           <NavLink
