@@ -20,7 +20,7 @@ const ActivitiesPage = () => {
     {
       id: 2,
       title: "St. Andrews State Park",
-      imageSrc: "/public/activities/boat-tour.webp",
+      imageSrc: "activities/boat-tour.webp",
       description:
         "The park has such amenities as two-and-a-half miles of beaches, bicycling, birding, boat tours, boating, canoeing, two fishing piers, hiking, kayaking, picnicking areas, scuba diving, snorkeling, swimming, wildlife viewing and full camping facilities. During the summer, camping reservations are recommended for best availability. It also has a visitor center, an interpretive exhibit and concessions.",
     },
@@ -28,7 +28,7 @@ const ActivitiesPage = () => {
     {
       id: 3,
       title: " Camp Helen State Park",
-      imageSrc: "/public/activities/shopping.webp",
+      imageSrc: "activities/shopping.webp",
       description:
         "Camp Helen State Park is a Florida State Park and historic site located west of Panama City Beach, in northwestern Florida. The park is south of U.S. 98, and bounded by the Gulf of Mexico and Lake Powell. The park was added to the National Register of Historic Places on May 24, 2012",
     },
@@ -36,7 +36,7 @@ const ActivitiesPage = () => {
     {
       id: 4,
       title: "Frank Brown Park",
-      imageSrc:  "/public/activities/hookd.webp",
+      imageSrc:  "activities/hookd.webp",
       description:
         "Frank Brown Park is a 200-acre outdoor recreation facility in Panama City Beach, Florida. The park hosts various sporting events throughout the year and has facilities available for public use. The largest park in Panama City Beach is Frank Brown Park, just over 100 acres and located on Panama City Beach Parkway between State Road 79 and Pier Park",
     },
@@ -44,7 +44,7 @@ const ActivitiesPage = () => {
     {
       id: 5,
       title: "Pier Park",
-      imageSrc: "/public/activities/lizas-kitchen.webp",
+      imageSrc: "activities/lizas-kitchen.webp",
       description:
         " Pier Park is Panama City Beach’s premier shopping and entertainment destination. Serving the Panama City Beach and 30A community, this outdoor complex boasts 124 stores, ranging from clothing for the whole family to home goods, shoes, and jewelry. Pier Park also offers many exciting dining options. No matter what you’re in the mood for, Pier Park has the variety that puts the all in the mall. Choose your adventures at a variety of entertainment venues from the Grand IMAX movie theater, to laser tag and live music, Pier Park is your destination for fun, food, and fantastic shopping all near one of the country’s most beautiful beaches.",
     },
