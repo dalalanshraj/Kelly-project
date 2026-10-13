@@ -269,7 +269,7 @@ const Navbar = () => {
         "
               >
                 <img
-                  src={LOGO}
+                  src="/public/Logo/LOGO.png"
                   alt="logo"
                   className="
             w-[150px]
@@ -414,12 +414,13 @@ const Navbar = () => {
     items-center
     justify-between
     border-b
+  
   "
 >
   <img
     src={LOGO}
     alt="logo"
-    className="h-22 object-contain"
+    className="h-22 object-contain "
   />
 
   <button

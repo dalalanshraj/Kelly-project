@@ -24,7 +24,7 @@ const Footer = () => {
           {/* Center Column (Logo & Newsletter) */}
           <div className="flex-1 flex flex-col items-center">
             <img
-              src={LOGO}
+              src="/public/Logo/LOGO.png"
               alt="Destin Luxury Beach Rentals Logo"
               className="h-32 mb-6"
             />

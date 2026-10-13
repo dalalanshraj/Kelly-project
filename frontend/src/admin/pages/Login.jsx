@@ -215,10 +215,8 @@ const Login = () => {
         </p>
 
         {/* Footer */}
-        <div className="mt-4 pt-4 border-t border-white/60 text-center">
-          <p className="text-[11px] sm:text-xs text-gray-500 mb-2">
-            Admin Portal
-          </p>
+        <div className="mt-1 pt-4 border-t border-white/60 text-center">
+          
 
           <div className="flex justify-center">
             <img
