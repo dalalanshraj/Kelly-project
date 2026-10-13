@@ -269,7 +269,7 @@ const Navbar = () => {
         "
               >
                 <img
-                  src="/public/Logo/LOGO.png"
+                  src="/Logo/LOGO.png"
                   alt="logo"
                   className="
             w-[150px]
