@@ -30,6 +30,7 @@ import {
   getPublishedListings,
   getAllReviews,
 getCommunityListings,
+getAllCommunities,
   
 
 } from "../controllers/listingController.js";
@@ -80,6 +81,7 @@ const upload = multer({
 
 router.get("/published", getPublishedListings);
 router.get("/reviews", getAllReviews); 
+router.get("/communities/all", getAllCommunities);
 router.get("/public", async (req, res) => {
   try {
     const listings = await Listing.find().select("_id property.title");
@@ -145,6 +147,7 @@ router.put(
   "/community/:community",
   getCommunityListings
 );
+ 
 
 
 export default router;

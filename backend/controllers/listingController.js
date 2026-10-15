@@ -934,3 +934,25 @@ async (req, res) => {
 
   }
 };
+export const getAllCommunities = async (req, res) => {
+  try {
+    const communities = await Listing.distinct(
+      "property.community",
+      {
+        status: "published",
+        "property.community": {
+          $exists: true,
+          $nin: ["", null],
+        },
+      }
+    );
+
+    res.status(200).json(communities);
+  } catch (error) {
+    console.error("Get all communities error:", error);
+
+    res.status(500).json({
+      message: "Failed to fetch communities",
+    });
+  }
+};
